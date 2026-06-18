@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1544 500">
+  <defs>
+    <linearGradient id="bannerBg" x1="0" y1="0" x2="1544" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="60%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1544" height="500" fill="url(#bannerBg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="1300" cy="80" r="280" fill="#6366f1" opacity="0.08"/>
+  <circle cx="1420" cy="420" r="180" fill="#818cf8" opacity="0.07"/>
+  <circle cx="100" cy="450" r="200" fill="#4338ca" opacity="0.06"/>
+
+  <!-- Signal waves decoration (right side) -->
+  <path d="M980 160 Q1040 80 1100 160 Q1160 240 1220 160" stroke="#818cf8" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.3"/>
+  <path d="M1030 200 Q1110 100 1190 200 Q1270 300 1350 200" stroke="#818cf8" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.2"/>
+  <path d="M1070 240 Q1180 120 1290 240 Q1400 360 1510 240" stroke="#818cf8" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.1"/>
+
+  <!-- Envelope illustration (right) -->
+  <g transform="translate(1100, 200)">
+    <rect x="0" y="60" width="220" height="110" rx="10" fill="white" opacity="0.12"/>
+    <path d="M0 80 L110 130 L220 80" stroke="white" stroke-width="4" stroke-linejoin="round" fill="none" opacity="0.25"/>
+    <path d="M30 40 Q55 10 80 40 Q105 70 130 40" stroke="white" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.5"/>
+    <path d="M55 18 Q88 -18 120 18 Q152 54 184 18" stroke="white" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.3"/>
+  </g>
+
+  <!-- Logo icon (left) -->
+  <g transform="translate(90, 170)">
+    <rect width="120" height="120" rx="24" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <!-- mini envelope -->
+    <rect x="22" y="68" width="76" height="34" rx="5" fill="white" opacity="0.9"/>
+    <path d="M22 76 L60 92 L98 76" stroke="#6366f1" stroke-width="2" stroke-linejoin="round" fill="none"/>
+    <!-- mini waves -->
+    <path d="M32 56 Q40 44 48 56 Q56 68 64 56" stroke="white" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9"/>
+    <path d="M48 46 Q60 30 72 46 Q84 62 96 46" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+  </g>
+
+  <!-- Plugin name -->
+  <text x="244" y="244" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="82" font-weight="700" fill="white" letter-spacing="-2">Postwave</text>
+  <text x="246" y="316" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="44" font-weight="400" fill="#a5b4fc" letter-spacing="6">JMAP</text>
+
+  <!-- Tagline -->
+  <text x="246" y="380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="26" font-weight="400" fill="rgba(255,255,255,0.55)" letter-spacing="0.5">Modern JMAP mail for WordPress — no SMTP ports needed</text>
+
+  <!-- Bottom label -->
+  <text x="246" y="440" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="500" fill="rgba(165,180,252,0.6)" letter-spacing="1">by Tahhan.nl</text>
+</svg>

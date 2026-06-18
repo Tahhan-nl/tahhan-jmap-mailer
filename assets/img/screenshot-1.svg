@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <!-- Page background -->
+  <rect width="1200" height="750" fill="#f0f0f1"/>
+
+  <!-- WP Admin bar -->
+  <rect width="1200" height="32" fill="#1d2327"/>
+  <text x="16" y="21" font-size="13" fill="#a7aaad">WordPress</text>
+
+  <!-- WP Sidebar -->
+  <rect x="0" y="32" width="160" height="718" fill="#1d2327"/>
+  <rect x="0" y="32" width="160" height="36" fill="#2c3338"/>
+  <text x="16" y="56" font-size="13" fill="#f0f0f1" font-weight="600">Dashboard</text>
+  <text x="16" y="92" font-size="13" fill="#a7aaad">Posts</text>
+  <text x="16" y="120" font-size="13" fill="#a7aaad">Pages</text>
+  <text x="16" y="148" font-size="13" fill="#a7aaad">Plugins</text>
+  <!-- Postwave menu item - active -->
+  <rect x="0" y="164" width="160" height="32" fill="#2271b1" opacity="0.3"/>
+  <rect x="0" y="164" width="3" height="32" fill="#6366f1"/>
+  <text x="16" y="185" font-size="13" fill="#72aee6" font-weight="600">Postwave JMAP</text>
+
+  <!-- Main area -->
+  <!-- Header -->
+  <rect x="160" y="32" width="1040" height="52" fill="white"/>
+  <rect x="160" y="84" width="1040" height="1" fill="#dcdcde"/>
+  <!-- Logo -->
+  <rect x="180" y="44" width="28" height="28" rx="6" fill="#6366f1"/>
+  <rect x="186" y="56" width="16" height="8" rx="2" fill="white" opacity="0.9"/>
+  <path d="M186 58 L194 61 L202 58" stroke="#818cf8" stroke-width="1.2" fill="none"/>
+  <path d="M188 52 Q192 47 196 52" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <text x="216" y="58" font-size="15" font-weight="700" fill="#1d2327">Postwave JMAP</text>
+  <text x="216" y="73" font-size="11" fill="#646970">JMAP Mail for WordPress</text>
+  <!-- Active badge -->
+  <rect x="1090" y="50" width="82" height="22" rx="11" fill="#edfaef" stroke="#b8e6c1" stroke-width="1"/>
+  <circle cx="1103" cy="61" r="4" fill="#00a32a"/>
+  <text x="1112" y="65" font-size="12" font-weight="600" fill="#00a32a">Active</text>
+
+  <!-- Top nav -->
+  <rect x="160" y="85" width="1040" height="44" fill="white"/>
+  <rect x="160" y="129" width="1040" height="1" fill="#dcdcde"/>
+  <!-- General tab - active -->
+  <text x="188" y="113" font-size="13" font-weight="600" fill="#6366f1">General</text>
+  <rect x="182" y="127" width="58" height="2" fill="#6366f1"/>
+  <!-- Other tabs -->
+  <text x="258" y="113" font-size="13" fill="#646970">Connection</text>
+  <text x="342" y="113" font-size="13" fill="#646970">Mail Log</text>
+  <rect x="371" y="106" width="16" height="14" rx="7" fill="#e5e7eb"/>
+  <text x="375" y="117" font-size="10" font-weight="600" fill="#6b7280">1</text>
+  <text x="1140" y="113" font-size="11" fill="#a7aaad">v1.0.0</text>
+
+  <!-- Page header -->
+  <text x="192" y="164" font-size="18" font-weight="700" fill="#1d2327">General</text>
+  <text x="192" y="184" font-size="13" fill="#646970">Enable Postwave JMAP and configure sender information.</text>
+
+  <!-- Stats row -->
+  <g transform="translate(192, 200)">
+    <!-- Stat 1 -->
+    <rect width="155" height="68" rx="8" fill="white" stroke="#dcdcde" stroke-width="1"/>
+    <text x="16" y="36" font-size="24" font-weight="700" fill="#6366f1">3</text>
+    <text x="16" y="54" font-size="10" font-weight="600" fill="#646970" letter-spacing="0.4">SENT TODAY</text>
+    <!-- Stat 2 -->
+    <rect x="165" width="155" height="68" rx="8" fill="white" stroke="#dcdcde" stroke-width="1"/>
+    <text x="181" y="36" font-size="24" font-weight="700" fill="#d63638">0</text>
+    <text x="181" y="54" font-size="10" font-weight="600" fill="#646970" letter-spacing="0.4">FAILED TODAY</text>
+    <!-- Stat 3 -->
+    <rect x="330" width="155" height="68" rx="8" fill="white" stroke="#dcdcde" stroke-width="1"/>
+    <text x="346" y="36" font-size="24" font-weight="700" fill="#6366f1">18</text>
+    <text x="346" y="54" font-size="10" font-weight="600" fill="#646970" letter-spacing="0.4">SENT THIS WEEK</text>
+    <!-- Stat 4 -->
+    <rect x="495" width="155" height="68" rx="8" fill="white" stroke="#dcdcde" stroke-width="1"/>
+    <text x="511" y="36" font-size="24" font-weight="700" fill="#d63638">1</text>
+    <text x="511" y="54" font-size="10" font-weight="600" fill="#646970" letter-spacing="0.4">FAILED THIS WEEK</text>
+    <!-- Stat 5 -->
+    <rect x="660" width="155" height="68" rx="8" fill="white" stroke="#dcdcde" stroke-width="1"/>
+    <text x="676" y="36" font-size="24" font-weight="700" fill="#3c434a">47</text>
+    <text x="676" y="54" font-size="10" font-weight="600" fill="#646970" letter-spacing="0.4">TOTAL LOGGED</text>
+  </g>
+
+  <!-- Enable panel -->
+  <rect x="192" y="290" width="820" height="72" rx="8" fill="white" stroke="#dcdcde" stroke-width="1"/>
+  <text x="216" y="322" font-size="14" font-weight="600" fill="#2c3338">Enable Postwave JMAP</text>
+  <text x="216" y="342" font-size="13" fill="#646970">Route all WordPress emails through your JMAP server</text>
+  <!-- Toggle ON -->
+  <rect x="960" y="311" width="44" height="24" rx="12" fill="#6366f1"/>
+  <circle cx="992" cy="323" r="9" fill="white"/>
+  <rect x="952" y="300" width="60" height="46" rx="6" fill="transparent"/>
+
+  <!-- Sender panel -->
+  <rect x="192" y="378" width="820" height="240" rx="8" fill="white" stroke="#dcdcde" stroke-width="1"/>
+  <text x="216" y="408" font-size="14" font-weight="700" fill="#2c3338">Sender Information</text>
+  <text x="216" y="426" font-size="12.5" fill="#646970">The name and email address shown to recipients of outgoing mail.</text>
+  <!-- Labels -->
+  <text x="216" y="458" font-size="11" font-weight="600" fill="#3c434a" letter-spacing="0.5">FROM NAME</text>
+  <text x="616" y="458" font-size="11" font-weight="600" fill="#3c434a" letter-spacing="0.5">FROM EMAIL</text>
+  <!-- Inputs -->
+  <rect x="216" y="464" width="380" height="38" rx="4" fill="white" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="230" y="488" font-size="13" fill="#1d2327">Tahhan Web Experts</text>
+  <rect x="616" y="464" width="380" height="38" rx="4" fill="white" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="630" y="488" font-size="13" fill="#1d2327">info@tahhan.nl</text>
+  <!-- Test recipient -->
+  <text x="216" y="528" font-size="11" font-weight="600" fill="#3c434a" letter-spacing="0.5">TEST RECIPIENT</text>
+  <text x="316" y="528" font-size="11" fill="#a7aaad">for Send Test Email button</text>
+  <rect x="216" y="534" width="380" height="38" rx="4" fill="white" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="230" y="558" font-size="13" fill="#a7aaad">Falls back to From Email</text>
+  <!-- Footer -->
+  <rect x="192" y="574" width="820" height="44" rx="0 0 8 8" fill="#f9fafb"/>
+  <rect x="192" y="574" width="820" height="1" fill="#f0f0f1"/>
+  <rect x="216" y="586" width="120" height="32" rx="4" fill="#6366f1"/>
+  <text x="252" y="607" font-size="13" font-weight="500" fill="white">Save settings</text>
+</svg>

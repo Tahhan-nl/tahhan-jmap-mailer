@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a5b4fc" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#4338ca" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="256" rx="52" fill="url(#bg)"/>
+
+  <!-- Subtle inner glow -->
+  <rect width="256" height="180" rx="52" fill="url(#glow)"/>
+
+  <!-- Envelope body -->
+  <rect x="48" y="136" width="160" height="76" rx="10" fill="white" opacity="0.96"/>
+
+  <!-- Envelope flap fold line -->
+  <path d="M48 154 L128 194 L208 154" stroke="#6366f1" stroke-width="5" stroke-linejoin="round" fill="none" opacity="0.5"/>
+
+  <!-- Signal waves (top) -->
+  <path d="M78 118 Q88 96 98 118 Q108 140 118 118" stroke="white" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.95"/>
+  <path d="M108 106 Q124 76 140 106 Q156 136 172 106" stroke="white" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.75"/>
+  <path d="M138 94 Q160 56 182 94 Q204 132 226 94" stroke="white" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.35"/>
+</svg>
