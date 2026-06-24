@@ -25,7 +25,7 @@ class Postwave_Retry_Queue {
 		if ( ! isset( $schedules['postwave_5min'] ) ) {
 			$schedules['postwave_5min'] = array(
 				'interval' => 300,
-				'display'  => __( 'Every 5 minutes (Postwave JMAP)', 'postwave' ),
+				'display'  => __( 'Every 5 minutes (Postwave)', 'postwave' ),
 			);
 		}
 		return $schedules;

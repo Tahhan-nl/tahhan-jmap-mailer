@@ -34,8 +34,8 @@ class Postwave_Admin {
 
 	public function register_page() {
 		add_menu_page(
-			__( 'Postwave JMAP', 'postwave' ),
-			__( 'Postwave JMAP', 'postwave' ),
+			__( 'Postwave', 'postwave' ),
+			__( 'Postwave', 'postwave' ),
 			'manage_options',
 			'postwave',
 			array( $this, 'render_page' ),
@@ -194,8 +194,8 @@ class Postwave_Admin {
 
 			$sent = wp_mail(
 				$to,
-				__( 'Postwave JMAP — Test Email', 'postwave' ),
-				__( 'This is a test email sent via Postwave JMAP. If you received this, JMAP is configured correctly.', 'postwave' )
+				__( 'Postwave — Test Email', 'postwave' ),
+				__( 'This is a test email sent via Postwave. If you received this, JMAP is configured correctly.', 'postwave' )
 			);
 
 			remove_action( 'wp_mail_failed', $error_handler );

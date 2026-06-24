@@ -1,13 +1,13 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Tahhan-nl/postwave-jmap/main/assets/img/banner-1544x500.png" alt="Postwave JMAP Banner" width="100%">
+<img src="https://raw.githubusercontent.com/Tahhan-nl/postwave-jmap/main/assets/img/banner-1544x500.png" alt="Postwave Banner" width="100%">
 
-# Postwave JMAP
+# Postwave
 
 ### Modern JMAP Mail for WordPress
 
 **Send every WordPress email through a real mail server — no SMTP ports, no relay limits, no deliverability headaches.**  
-Postwave JMAP replaces WordPress's built-in mailer with the modern [JMAP protocol](https://jmap.io/) (RFC 8620 / RFC 8621).
+Postwave replaces WordPress's built-in mailer with the modern [JMAP protocol](https://jmap.io/) (RFC 8620 / RFC 8621).
 
 ---
 
@@ -21,13 +21,13 @@ Postwave JMAP replaces WordPress's built-in mailer with the modern [JMAP protoco
 
 ---
 
-## What is Postwave JMAP?
+## What is Postwave?
 
 Most WordPress sites send email through SMTP — a protocol designed in 1982. It requires open ports, relay credentials, and third-party services that rate-limit you or charge per email.
 
-**Postwave JMAP** takes a different approach: it uses **JMAP** (JSON Meta Application Protocol), the modern RFC-standard replacement for IMAP/SMTP. JMAP talks over standard HTTPS, works through firewalls, requires no port configuration, and is supported by modern mail servers like [Stalwart Mail Server](https://stalw.art), [Fastmail](https://fastmail.com), and [Cyrus IMAP](https://www.cyrusimap.org/).
+**Postwave** takes a different approach: it uses **JMAP** (JSON Meta Application Protocol), the modern RFC-standard replacement for IMAP/SMTP. JMAP talks over standard HTTPS, works through firewalls, requires no port configuration, and is supported by modern mail servers like [Stalwart Mail Server](https://stalw.art), [Fastmail](https://fastmail.com), and [Cyrus IMAP](https://www.cyrusimap.org/).
 
-> **TL;DR** — Install Postwave JMAP, enter your JMAP server URL + credentials, and every `wp_mail()` call on your site is delivered through your own mail infrastructure.
+> **TL;DR** — Install Postwave, enter your JMAP server URL + credentials, and every `wp_mail()` call on your site is delivered through your own mail infrastructure.
 
 ---
 
@@ -74,7 +74,7 @@ Most WordPress sites send email through SMTP — a protocol designed in 1982. It
 ### Manually via FTP
 1. Download and unzip the release
 2. Upload the `postwave/` folder to `/wp-content/plugins/`
-3. Go to **Plugins** in WordPress admin and activate **Postwave JMAP**
+3. Go to **Plugins** in WordPress admin and activate **Postwave**
 
 ### Via WP-CLI
 ```bash
@@ -85,7 +85,7 @@ wp plugin install https://github.com/Tahhan-nl/postwave-jmap/releases/latest/dow
 
 ## Configuration
 
-After activation, Postwave JMAP shows a **setup wizard** if no server is configured yet.
+After activation, Postwave shows a **setup wizard** if no server is configured yet.
 
 ### Step 1 — Server
 Enter your JMAP server base URL (e.g. `https://mail.example.com`).  
@@ -97,11 +97,11 @@ Set the **From Name** and **From Email** address for outgoing mail.
 Optionally add a **Test Recipient** for the "Send Test Email" button.
 
 ### Step 3 — Activate
-Toggle **Enable Postwave JMAP** to start routing all WordPress mail through JMAP.
+Toggle **Enable Postwave** to start routing all WordPress mail through JMAP.
 
 ### Testing the connection
-Go to **Postwave JMAP → Connection** and click **Test connection**.  
-Postwave JMAP will:
+Go to **Postwave → Connection** and click **Test connection**.  
+Postwave will:
 1. Discover the JMAP session
 2. Resolve the sender identity
 3. Verify server capabilities
@@ -129,7 +129,7 @@ Click **Send test email** to fire a real email through the full send pipeline.
 WordPress calls wp_mail()
         │
         ▼
-Postwave JMAP hooks pre_wp_mail
+Postwave hooks pre_wp_mail
         │
         ├─ Discovers JMAP session (/.well-known/jmap)
         ├─ Resolves sender identity (Identity/get)
@@ -205,7 +205,7 @@ Postwave JMAP hooks pre_wp_mail
 
 ## Privacy
 
-Postwave JMAP stores the following per email attempt in `wp_options`:
+Postwave stores the following per email attempt in `wp_options`:
 - Timestamp
 - Recipient address(es)
 - Subject line
@@ -214,7 +214,7 @@ Postwave JMAP stores the following per email attempt in `wp_options`:
 - Error message (if failed)
 
 **Message bodies, CC/BCC addresses, and attachment contents are never stored.**  
-The log is capped at 100 entries. You can clear it at any time from **Postwave JMAP → Mail Log**.
+The log is capped at 100 entries. You can clear it at any time from **Postwave → Mail Log**.
 
 ---
 
@@ -239,7 +239,7 @@ add_filter( 'postwave_request_args', function( $args, $method ) {
 }, 10, 2 );
 ```
 
-### Bypass Postwave JMAP for a single send
+### Bypass Postwave for a single send
 
 ```php
 remove_filter( 'pre_wp_mail', [ Postwave_Mailer::class, 'send' ], 10 );
@@ -267,10 +267,10 @@ Found a vulnerability? Please report it privately via [GitHub Security Advisorie
 
 ## License
 
-Postwave JMAP is open-source software licensed under the [GNU General Public License v2.0](LICENSE).
+Postwave is open-source software licensed under the [GNU General Public License v2.0](LICENSE).
 
 ```
-Postwave JMAP — JMAP Mail for WordPress
+Postwave — JMAP Mail for WordPress
 Copyright (C) 2026 Tahhan.nl
 
 This program is free software: you can redistribute it and/or modify

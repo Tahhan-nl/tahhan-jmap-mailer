@@ -1,6 +1,6 @@
 <?php
 /**
- * Postwave JMAP Client — session discovery, API requests, blob uploads.
+ * Postwave Client — session discovery, API requests, blob uploads.
  *
  * @package Postwave
  * @license GPL-2.0-or-later

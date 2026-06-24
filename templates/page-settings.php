@@ -165,7 +165,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
   $tab_meta = array(
     'general'    => array(
       'label' => __( 'General', 'postwave' ),
-      'desc'  => __( 'Enable Postwave JMAP and configure sender information.', 'postwave' ),
+      'desc'  => __( 'Enable Postwave and configure sender information.', 'postwave' ),
       'icon'  => $icon_general,
     ),
     'accounts'   => array(
@@ -304,7 +304,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
             <input type="hidden" name="postwave[enabled]" value="0">
             <div class="pw-toggle-row">
               <div class="pw-toggle-info">
-                <strong><?php esc_html_e( 'Enable Postwave JMAP', 'postwave' ); ?></strong>
+                <strong><?php esc_html_e( 'Enable Postwave', 'postwave' ); ?></strong>
                 <span><?php esc_html_e( 'Route all WordPress emails through your JMAP server', 'postwave' ); ?></span>
               </div>
               <label class="pw-toggle">
