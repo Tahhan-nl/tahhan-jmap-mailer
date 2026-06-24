@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <defs>
+    <linearGradient id="logoGrad7" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="800" fill="#f0f0f1"/>
+
+  <!-- WP Admin bar -->
+  <rect width="1280" height="32" fill="#1d2327"/>
+  <text x="12" y="21" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">&#9632; WordPress</text>
+  <text x="120" y="21" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">My Site</text>
+  <text x="210" y="21" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">+New</text>
+  <text x="1180" y="21" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">Howdy, admin</text>
+
+  <!-- WP Left menu -->
+  <rect x="0" y="32" width="160" height="768" fill="#2c3338"/>
+  <rect x="0" y="32" width="160" height="36" fill="#1d2327"/>
+  <text x="20" y="56" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#f0f0f1">&#8962; Dashboard</text>
+  <text x="20" y="100" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">&#128221; Posts</text>
+  <text x="20" y="130" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">&#128247; Media</text>
+  <text x="20" y="160" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">&#128196; Pages</text>
+  <text x="20" y="190" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">&#128101; Users</text>
+  <text x="20" y="220" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#a7aaad">&#9881; Settings</text>
+  <rect x="0" y="235" width="160" height="36" fill="#6366f1"/>
+  <text x="20" y="259" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="600" fill="#ffffff">&#9993; Postwave</text>
+
+  <!-- Main content area -->
+  <rect x="160" y="32" width="1120" height="768" fill="#f0f0f1"/>
+
+  <!-- Plugin header bar -->
+  <rect x="160" y="32" width="1120" height="52" fill="#ffffff" stroke="#dcdcde" stroke-width="1"/>
+  <rect x="184" y="42" width="32" height="32" rx="8" fill="url(#logoGrad7)"/>
+  <text x="200" y="63" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" fill="#ffffff" text-anchor="middle">&#9993;</text>
+  <text x="228" y="55" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="700" fill="#1d2327">Postwave</text>
+  <text x="228" y="71" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#646970">JMAP Mail for WordPress</text>
+  <rect x="1160" y="52" width="100" height="20" rx="10" fill="#edfaef"/>
+  <circle cx="1172" cy="62" r="4" fill="#00a32a"/>
+  <text x="1182" y="66" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" fill="#00a32a">Active</text>
+
+  <!-- Tab navigation -->
+  <rect x="160" y="84" width="1120" height="44" fill="#ffffff" stroke="#dcdcde" stroke-width="1"/>
+  <text x="196" y="111" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#646970">General</text>
+  <text x="270" y="111" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#646970">Accounts</text>
+  <!-- Active Routing tab -->
+  <rect x="350" y="84" width="90" height="44" fill="#ffffff"/>
+  <rect x="350" y="124" width="90" height="3" fill="#6366f1"/>
+  <text x="395" y="111" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="600" fill="#6366f1" text-anchor="middle">Routing</text>
+  <rect x="435" y="96" width="18" height="16" rx="8" fill="#6366f1"/>
+  <text x="444" y="108" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="475" y="111" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#646970">Connection</text>
+  <text x="575" y="111" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#646970">Mail Log</text>
+
+  <!-- Page content -->
+  <rect x="160" y="128" width="1120" height="680" fill="#f0f0f1"/>
+  <text x="196" y="168" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="20" font-weight="700" fill="#1d2327">Routing</text>
+  <text x="196" y="188" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#646970">Route emails to specific accounts based on conditions. First match wins.</text>
+
+  <!-- Rules table panel -->
+  <rect x="196" y="208" width="1064" height="260" rx="4" fill="#ffffff" stroke="#dcdcde" stroke-width="1"/>
+
+  <!-- Table header -->
+  <rect x="196" y="208" width="1064" height="40" rx="4" fill="#f9fafb" stroke="#dcdcde" stroke-width="1"/>
+  <text x="220" y="233" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="600" fill="#3c434a">Priority</text>
+  <text x="300" y="233" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="600" fill="#3c434a">Rule name</text>
+  <text x="500" y="233" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="600" fill="#3c434a">Conditions</text>
+  <text x="780" y="233" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="600" fill="#3c434a">Account</text>
+  <text x="920" y="233" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="600" fill="#3c434a">Enabled</text>
+  <text x="1020" y="233" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="600" fill="#3c434a">Actions</text>
+
+  <!-- Rule 1: WooCommerce Orders -->
+  <rect x="196" y="248" width="1064" height="56" fill="#ffffff" stroke="#dcdcde" stroke-width="0" stroke-dasharray="0"/>
+  <line x1="196" y1="248" x2="1260" y2="248" stroke="#dcdcde" stroke-width="1"/>
+  <!-- Priority buttons -->
+  <rect x="218" y="260" width="22" height="22" rx="3" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="229" y="275" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#3c434a" text-anchor="middle">&#8593;</text>
+  <rect x="244" y="260" width="22" height="22" rx="3" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="255" y="275" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#3c434a" text-anchor="middle">&#8595;</text>
+  <text x="300" y="276" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#1d2327">WooCommerce Orders</text>
+  <!-- Condition pills -->
+  <rect x="500" y="259" width="100" height="22" rx="3" fill="#f0f0f1"/>
+  <text x="505" y="274" font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#3c434a">plugin</text>
+  <text x="608" y="274" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#646970">:</text>
+  <rect x="618" y="259" width="120" height="22" rx="3" fill="#f0f0f1"/>
+  <text x="623" y="274" font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#3c434a">woocommerce</text>
+  <!-- Account badge -->
+  <rect x="776" y="261" width="110" height="20" rx="10" fill="#eef2ff"/>
+  <text x="831" y="275" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#6366f1" text-anchor="middle">Transactional</text>
+  <!-- Enabled -->
+  <rect x="916" y="261" width="36" height="20" rx="10" fill="#6366f1"/>
+  <text x="934" y="275" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">Yes</text>
+  <!-- Actions -->
+  <rect x="1020" y="261" width="50" height="22" rx="3" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="1045" y="276" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#3c434a" text-anchor="middle">Edit</text>
+  <rect x="1076" y="261" width="55" height="22" rx="3" fill="#fef2f2" stroke="#f5c6c7" stroke-width="1"/>
+  <text x="1103" y="276" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#d63638" text-anchor="middle">Delete</text>
+
+  <!-- Rule 2: Support emails -->
+  <line x1="196" y1="304" x2="1260" y2="304" stroke="#dcdcde" stroke-width="1"/>
+  <rect x="218" y="316" width="22" height="22" rx="3" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="229" y="331" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#3c434a" text-anchor="middle">&#8593;</text>
+  <rect x="244" y="316" width="22" height="22" rx="3" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="255" y="331" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#a7aaad" text-anchor="middle">&#8595;</text>
+  <text x="300" y="332" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" fill="#1d2327">Support Emails</text>
+  <!-- Condition -->
+  <rect x="500" y="315" width="110" height="22" rx="3" fill="#f0f0f1"/>
+  <text x="505" y="330" font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#3c434a">to_domain</text>
+  <text x="613" y="330" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#646970">:</text>
+  <rect x="623" y="315" width="110" height="22" rx="3" fill="#f0f0f1"/>
+  <text x="628" y="330" font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#3c434a">support.io</text>
+  <!-- Account -->
+  <rect x="776" y="317" width="75" height="20" rx="10" fill="#eef2ff"/>
+  <text x="813" y="331" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#6366f1" text-anchor="middle">Primary</text>
+  <!-- Enabled -->
+  <rect x="916" y="317" width="36" height="20" rx="10" fill="#6366f1"/>
+  <text x="934" y="331" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">Yes</text>
+  <!-- Actions -->
+  <rect x="1020" y="317" width="50" height="22" rx="3" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1"/>
+  <text x="1045" y="332" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#3c434a" text-anchor="middle">Edit</text>
+  <rect x="1076" y="317" width="55" height="22" rx="3" fill="#fef2f2" stroke="#f5c6c7" stroke-width="1"/>
+  <text x="1103" y="332" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" fill="#d63638" text-anchor="middle">Delete</text>
+
+  <!-- Explanation text in panel -->
+  <text x="220" y="400" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" fill="#646970">Rules are evaluated top-to-bottom. The first matching rule is applied. Emails not matching any rule use the Primary account.</text>
+  <text x="220" y="435" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" fill="#646970">Plugin values: woocommerce, woocommerce:customer_processing_order, gravityforms, fluentform, cf7</text>
+
+  <!-- Add Rule button -->
+  <rect x="196" y="488" width="120" height="36" rx="4" fill="#6366f1"/>
+  <text x="256" y="511" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">+ Add rule</text>
+</svg>

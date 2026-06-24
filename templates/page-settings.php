@@ -33,177 +33,128 @@ $icon_log        = '<svg viewBox="0 0 20 20" fill="currentColor" width="16" heig
 $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>';
 ?>
 
-<?php if ( $is_setup ) : /* ══════════════ WIZARD ══════════════ */ ?>
-
-<div id="pw-page" class="pw-mode-wizard">
-<div class="pw-wizard-outer">
-  <div class="pw-wizard-card" id="pw-wizard">
-
-    <!-- Step 0: Welcome -->
-    <div id="pw-ws0">
-      <div class="pw-hero">
-        <?php echo $logo; ?>
-        <h1>Welcome to Postwave JMAP</h1>
-        <p>Modern JMAP mail for WordPress — no SMTP, no ports, no hassle.</p>
+<!-- ══════════════ WIZARD OVERLAY ══════════════ -->
+<div id="pw-wizard" class="pw-wizard-overlay">
+  <div class="pw-wizard__card">
+    <div class="pw-wizard__header">
+      <div class="pw-wizard__logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" width="28" height="28"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
       </div>
-      <ul class="pw-feats">
-        <li>
-          <div class="pw-feat-icon">
-            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
-          </div>
-          <div>
-            <strong><?php esc_html_e( 'JMAP Protocol', 'postwave' ); ?></strong>
-            <span><?php esc_html_e( 'RFC 8620/8621 — works with Stalwart, Fastmail &amp; more', 'postwave' ); ?></span>
-          </div>
-        </li>
-        <li>
-          <div class="pw-feat-icon">
-            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-          </div>
-          <div>
-            <strong><?php esc_html_e( 'Secure delivery', 'postwave' ); ?></strong>
-            <span><?php esc_html_e( 'Auth via JMAP credentials, no plaintext secrets', 'postwave' ); ?></span>
-          </div>
-        </li>
-        <li>
-          <div class="pw-feat-icon">
-            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
-          </div>
-          <div>
-            <strong><?php esc_html_e( 'Mail log', 'postwave' ); ?></strong>
-            <span><?php esc_html_e( 'Every send attempt tracked — subject, recipient, status', 'postwave' ); ?></span>
-          </div>
-        </li>
-      </ul>
-      <div class="pw-hero-footer">
-        <button type="button" class="pw-btn pw-btn-primary pw-btn-lg" id="pw-wz-start">
-          <?php esc_html_e( 'Start setup', 'postwave' ); ?>
-          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-        </button>
-        <a href="<?php echo $url( [ 'page' => 'postwave', 'skip' => '1' ] ); ?>" class="pw-link-subtle">
-          <?php esc_html_e( 'Skip — configure manually later', 'postwave' ); ?>
-        </a>
+      <h1 class="pw-wizard__title"><?php esc_html_e( 'Welcome to Postwave', 'postwave' ); ?></h1>
+      <p class="pw-wizard__sub"><?php esc_html_e( 'Modern email for WordPress', 'postwave' ); ?></p>
+      <div class="pw-wizard__steps">
+        <div class="pw-wizard__step-dot pw-wizard__step-dot--active"></div>
+        <div class="pw-wizard__step-dot"></div>
+        <div class="pw-wizard__step-dot"></div>
+        <div class="pw-wizard__step-dot"></div>
       </div>
     </div>
+    <div class="pw-wizard__body">
 
-    <!-- Steps 1–3 (hidden until start) -->
-    <div id="pw-wz-body" style="display:none">
-
-      <div class="pw-progress" id="pw-progress">
-        <div class="pw-pdot pw-pdot-active" data-n="1"><span>1</span><?php esc_html_e( 'Server', 'postwave' ); ?></div>
-        <div class="pw-pline"></div>
-        <div class="pw-pdot" data-n="2"><span>2</span><?php esc_html_e( 'Sender', 'postwave' ); ?></div>
-        <div class="pw-pline"></div>
-        <div class="pw-pdot" data-n="3"><span>3</span><?php esc_html_e( 'Activate', 'postwave' ); ?></div>
+      <!-- Step 0: Welcome -->
+      <div class="pw-wizard__step pw-wizard__step--active">
+        <p style="font-size:15px;color:#374151;margin:0 0 20px;"><?php esc_html_e( 'Send every WordPress email through your own JMAP mail server — no SMTP ports, no relay limits.', 'postwave' ); ?></p>
+        <ul style="list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:12px;">
+          <li style="display:flex;align-items:flex-start;gap:10px;">
+            <svg viewBox="0 0 20 20" fill="#6366f1" width="18" height="18" style="flex-shrink:0;margin-top:2px;"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span style="font-size:13px;color:#374151;"><?php esc_html_e( 'RFC 8620/8621 — works with Stalwart, Fastmail &amp; more', 'postwave' ); ?></span>
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:10px;">
+            <svg viewBox="0 0 20 20" fill="#6366f1" width="18" height="18" style="flex-shrink:0;margin-top:2px;"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span style="font-size:13px;color:#374151;"><?php esc_html_e( 'Multi-account routing — send order emails from a dedicated address', 'postwave' ); ?></span>
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:10px;">
+            <svg viewBox="0 0 20 20" fill="#6366f1" width="18" height="18" style="flex-shrink:0;margin-top:2px;"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span style="font-size:13px;color:#374151;"><?php esc_html_e( 'Retry queue, open tracking, and full mail log included', 'postwave' ); ?></span>
+          </li>
+        </ul>
+        <div class="pw-wizard__actions">
+          <button type="button" class="pw-wizard__btn pw-wizard__btn--ghost" data-wizard-skip><?php esc_html_e( 'Skip for now', 'postwave' ); ?></button>
+          <button type="button" class="pw-wizard__btn pw-wizard__btn--primary" data-wizard-next="1"><?php esc_html_e( 'Get Started', 'postwave' ); ?> &rarr;</button>
+        </div>
       </div>
 
-      <form method="post" action="<?php echo $act; ?>" id="pw-wz-form">
-        <?php wp_nonce_field( 'postwave_save' ); ?>
-        <input type="hidden" name="action"          value="postwave_save">
-        <input type="hidden" name="postwave[_tab]"  value="general">
-
-        <!-- Step 1: Server -->
-        <div id="pw-ws1" class="pw-wstep" style="display:none">
-          <div class="pw-wstep-head">
-            <h2><?php esc_html_e( 'Connect your JMAP server', 'postwave' ); ?></h2>
-            <p><?php esc_html_e( 'Enter the URL and credentials for your JMAP mail server.', 'postwave' ); ?></p>
-          </div>
-          <div class="pw-field">
-            <label for="pw-w-url"><?php esc_html_e( 'Server URL', 'postwave' ); ?></label>
-            <input type="url" id="pw-w-url" class="pw-input" name="postwave[server_url]"
+      <!-- Step 1: Connect -->
+      <div class="pw-wizard__step">
+        <form method="post" action="<?php echo $act; ?>" id="pw-wz-form">
+          <?php wp_nonce_field( 'postwave_save' ); ?>
+          <input type="hidden" name="action"         value="postwave_save">
+          <input type="hidden" name="postwave[_tab]" value="general">
+          <div class="pw-wizard__field">
+            <label for="pw-wz-url"><?php esc_html_e( 'Server URL', 'postwave' ); ?></label>
+            <input type="url" id="pw-wz-url" name="postwave[server_url]"
               value="<?php echo esc_attr( $o( 'server_url' ) ); ?>"
               placeholder="https://mail.example.com" required>
-            <span class="pw-field-hint"><?php esc_html_e( 'JMAP session is auto-discovered at /.well-known/jmap', 'postwave' ); ?></span>
+            <span style="font-size:12px;color:#6b7280;margin-top:4px;display:block;"><?php esc_html_e( 'JMAP session is auto-discovered at /.well-known/jmap', 'postwave' ); ?></span>
           </div>
-          <div class="pw-row-2">
-            <div class="pw-field">
-              <label for="pw-w-user"><?php esc_html_e( 'Username', 'postwave' ); ?></label>
-              <input type="text" id="pw-w-user" class="pw-input" name="postwave[username]"
-                value="<?php echo esc_attr( $o( 'username' ) ); ?>" autocomplete="username" required>
-            </div>
-            <div class="pw-field">
-              <label for="pw-w-pass"><?php esc_html_e( 'Password', 'postwave' ); ?></label>
-              <div class="pw-pass-wrap">
-                <input type="password" id="pw-w-pass" class="pw-input" name="postwave[password]" autocomplete="new-password">
-                <button type="button" class="pw-eye-btn" data-for="pw-w-pass" tabindex="-1">
-                  <svg class="pw-eye-on"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                  <svg class="pw-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-                </button>
-              </div>
-            </div>
+          <div class="pw-wizard__field">
+            <label for="pw-wz-user"><?php esc_html_e( 'Username', 'postwave' ); ?></label>
+            <input type="text" id="pw-wz-user" name="postwave[username]"
+              value="<?php echo esc_attr( $o( 'username' ) ); ?>" autocomplete="username" required>
           </div>
-          <div class="pw-wstep-nav">
-            <span></span>
-            <button type="button" class="pw-btn pw-btn-primary" data-next="2"><?php esc_html_e( 'Continue', 'postwave' ); ?> →</button>
+          <div class="pw-wizard__field">
+            <label for="pw-wz-pass"><?php esc_html_e( 'Password', 'postwave' ); ?></label>
+            <input type="password" id="pw-wz-pass" name="postwave[password]" autocomplete="new-password">
           </div>
+          <div class="pw-wizard__actions">
+            <button type="button" class="pw-wizard__btn pw-wizard__btn--ghost" data-wizard-next="0">&larr; <?php esc_html_e( 'Back', 'postwave' ); ?></button>
+            <button type="button" class="pw-wizard__btn pw-wizard__btn--primary" data-wizard-next="2"><?php esc_html_e( 'Test &amp; Continue', 'postwave' ); ?> &rarr;</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Identity -->
+      <div class="pw-wizard__step">
+        <div class="pw-wizard__field">
+          <label for="pw-wz-iname"><?php esc_html_e( 'Identity Name', 'postwave' ); ?></label>
+          <input type="text" id="pw-wz-iname" name="postwave[identity_name]"
+            value="<?php echo esc_attr( $o( 'identity_name', get_bloginfo( 'name' ) ) ); ?>">
         </div>
-
-        <!-- Step 2: Sender -->
-        <div id="pw-ws2" class="pw-wstep" style="display:none">
-          <div class="pw-wstep-head">
-            <h2><?php esc_html_e( 'Sender information', 'postwave' ); ?></h2>
-            <p><?php esc_html_e( 'How should outgoing emails appear to recipients?', 'postwave' ); ?></p>
-          </div>
-          <div class="pw-row-2">
-            <div class="pw-field">
-              <label for="pw-w-fname"><?php esc_html_e( 'From Name', 'postwave' ); ?></label>
-              <input type="text" id="pw-w-fname" class="pw-input" name="postwave[from_name]"
-                value="<?php echo esc_attr( $o( 'from_name', get_bloginfo( 'name' ) ) ); ?>">
-            </div>
-            <div class="pw-field">
-              <label for="pw-w-femail"><?php esc_html_e( 'From Email', 'postwave' ); ?></label>
-              <input type="email" id="pw-w-femail" class="pw-input" name="postwave[from_email]"
-                value="<?php echo esc_attr( $o( 'from_email', get_bloginfo( 'admin_email' ) ) ); ?>" required>
-            </div>
-          </div>
-          <div class="pw-field">
-            <label for="pw-w-recip"><?php esc_html_e( 'Test recipient', 'postwave' ); ?> <em class="pw-label-opt"><?php esc_html_e( 'optional', 'postwave' ); ?></em></label>
-            <input type="email" id="pw-w-recip" class="pw-input pw-input-half" name="postwave[test_recipient]"
-              value="<?php echo esc_attr( $o( 'test_recipient' ) ); ?>"
-              placeholder="<?php esc_attr_e( 'Falls back to From Email', 'postwave' ); ?>">
-          </div>
-          <div class="pw-wstep-nav">
-            <button type="button" class="pw-btn pw-btn-outline" data-prev="1">← <?php esc_html_e( 'Back', 'postwave' ); ?></button>
-            <button type="button" class="pw-btn pw-btn-primary" data-next="3"><?php esc_html_e( 'Continue', 'postwave' ); ?> →</button>
-          </div>
+        <div class="pw-wizard__field">
+          <label for="pw-wz-iemail"><?php esc_html_e( 'Identity Email', 'postwave' ); ?></label>
+          <input type="email" id="pw-wz-iemail" name="postwave[identity_email]"
+            value="<?php echo esc_attr( $o( 'identity_email', get_bloginfo( 'admin_email' ) ) ); ?>">
         </div>
-
-        <!-- Step 3: Activate -->
-        <div id="pw-ws3" class="pw-wstep" style="display:none">
-          <div class="pw-wstep-head">
-            <h2><?php esc_html_e( 'Activate Postwave JMAP', 'postwave' ); ?></h2>
-            <p><?php esc_html_e( 'Enable the plugin to route all WordPress emails through JMAP.', 'postwave' ); ?></p>
-          </div>
-          <input type="hidden" name="postwave[enabled]" value="0">
-          <div class="pw-toggle-row">
-            <div class="pw-toggle-info">
-              <strong><?php esc_html_e( 'Enable Postwave JMAP', 'postwave' ); ?></strong>
-              <span><?php esc_html_e( 'Intercept all wp_mail() calls and send via JMAP', 'postwave' ); ?></span>
-            </div>
-            <label class="pw-toggle">
-              <input type="checkbox" name="postwave[enabled]" value="1" class="pw-toggle-cb" <?php checked( 1, $o( 'enabled' ) ); ?>>
-              <span class="pw-toggle-track"><span class="pw-toggle-thumb"></span></span>
-            </label>
-          </div>
-          <div class="pw-wstep-nav">
-            <button type="button" class="pw-btn pw-btn-outline" data-prev="2">← <?php esc_html_e( 'Back', 'postwave' ); ?></button>
-            <button type="submit" class="pw-btn pw-btn-primary pw-btn-lg">
-              <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              <?php esc_html_e( 'Save &amp; finish', 'postwave' ); ?>
-            </button>
-          </div>
+        <div class="pw-wizard__field">
+          <label for="pw-wz-iid"><?php esc_html_e( 'Identity ID', 'postwave' ); ?> <span style="font-size:11px;color:#9ca3af;"><?php esc_html_e( 'optional — leave blank to auto-resolve', 'postwave' ); ?></span></label>
+          <input type="text" id="pw-wz-iid" name="postwave[identity_id]"
+            value="<?php echo esc_attr( $o( 'identity_id' ) ); ?>"
+            placeholder="<?php esc_attr_e( 'Auto-resolve from server', 'postwave' ); ?>">
         </div>
+        <div class="pw-wizard__actions">
+          <button type="button" class="pw-wizard__btn pw-wizard__btn--ghost" data-wizard-next="1">&larr; <?php esc_html_e( 'Back', 'postwave' ); ?></button>
+          <button type="button" class="pw-wizard__btn pw-wizard__btn--primary" data-wizard-next="3"><?php esc_html_e( 'Save &amp; Continue', 'postwave' ); ?> &rarr;</button>
+        </div>
+      </div>
 
-      </form>
-    </div><!-- /#pw-wz-body -->
+      <!-- Step 3: Done -->
+      <div class="pw-wizard__step">
+        <div class="pw-wizard__success">
+          <div class="pw-wizard__check">&#10003;</div>
+          <h2 style="font-size:20px;font-weight:700;color:#1d2327;margin:0 0 8px;"><?php esc_html_e( 'Postwave is ready!', 'postwave' ); ?></h2>
+          <p style="font-size:14px;color:#6b7280;margin:0 0 20px;"><?php esc_html_e( 'Your JMAP server is configured. Enable Postwave on the General tab to start routing emails.', 'postwave' ); ?></p>
+          <ul style="list-style:none;padding:0;margin:0 0 24px;text-align:left;display:inline-block;">
+            <li style="font-size:13px;color:#374151;margin-bottom:8px;">&#10003; <?php esc_html_e( 'Server connected', 'postwave' ); ?></li>
+            <li style="font-size:13px;color:#374151;margin-bottom:8px;">&#10003; <?php esc_html_e( 'Identity configured', 'postwave' ); ?></li>
+            <li style="font-size:13px;color:#374151;">&#10003; <?php esc_html_e( 'Ready to send', 'postwave' ); ?></li>
+          </ul>
+        </div>
+        <div class="pw-wizard__actions" style="justify-content:center;">
+          <button type="button" class="pw-wizard__btn pw-wizard__btn--primary" data-wizard-finish><?php esc_html_e( 'Go to Dashboard', 'postwave' ); ?></button>
+        </div>
+      </div>
 
-  </div><!-- /.pw-wizard-card -->
-</div><!-- /.pw-wizard-outer -->
-</div><!-- #pw-page -->
+    </div><!-- /.pw-wizard__body -->
+  </div><!-- /.pw-wizard__card -->
+</div><!-- #pw-wizard -->
+<?php if ( $is_setup ) : ?>
+<script>document.getElementById('pw-wizard').classList.add('pw-wizard--active');</script>
+<?php endif; ?>
 
-<?php else : /* ══════════════ DASHBOARD ══════════════ */ ?>
+<?php /* ══════════════ DASHBOARD ══════════════ */ ?>
 
 <div id="pw-page" class="pw-mode-dash">
+<div id="pw-toast" class="pw-toast" aria-live="polite" aria-atomic="true"></div>
 
   <?php
   /* ── Tab meta ── */
@@ -333,6 +284,25 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
 
       <!-- ══ TAB: GENERAL ══ -->
       <?php if ( $tab === 'general' ) : ?>
+
+      <div class="pw-status-bar">
+        <div class="pw-status-item">
+          <span class="pw-status-num"><?php echo esc_html( $stats['sent_today'] ); ?></span>
+          <span class="pw-status-label"><?php esc_html_e( 'Sent today', 'postwave' ); ?></span>
+        </div>
+        <div class="pw-status-item">
+          <span class="pw-status-num"><?php echo esc_html( $stats['sent_week'] ); ?></span>
+          <span class="pw-status-label"><?php esc_html_e( 'Sent this week', 'postwave' ); ?></span>
+        </div>
+        <div class="pw-status-item pw-status-item--<?php echo $stats['failed_today'] > 0 ? 'warn' : 'ok'; ?>">
+          <span class="pw-status-num"><?php echo esc_html( $stats['failed_today'] ); ?></span>
+          <span class="pw-status-label"><?php esc_html_e( 'Failed today', 'postwave' ); ?></span>
+        </div>
+        <div class="pw-status-item">
+          <span class="pw-status-num"><?php echo esc_html( $stats['total'] ); ?></span>
+          <span class="pw-status-label"><?php esc_html_e( 'Total logged', 'postwave' ); ?></span>
+        </div>
+      </div>
 
       <form method="post" action="<?php echo $act; ?>">
         <?php wp_nonce_field( 'postwave_save' ); ?>
@@ -529,6 +499,15 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
         <?php endforeach; ?>
       </div>
 
+      <?php if ( count( $accounts ) <= 1 ) : ?>
+      <div class="pw-empty-state">
+        <div class="pw-empty-state__icon">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 11l2 2 4-4"/></svg>
+        </div>
+        <p class="pw-empty-state__msg"><?php esc_html_e( 'Only the Primary account is configured. Add a second account to enable routing rules.', 'postwave' ); ?></p>
+      </div>
+      <?php endif; ?>
+
       <!-- Add account button -->
       <div style="margin-bottom:20px;">
         <button type="button" class="pw-btn pw-btn-primary" id="pw-add-account-btn">
@@ -606,6 +585,14 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
       </p>
 
       <!-- Rules table -->
+      <?php if ( empty( $rules ) ) : ?>
+      <div class="pw-empty-state">
+        <div class="pw-empty-state__icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <p class="pw-empty-state__msg"><?php esc_html_e( 'No routing rules yet. Add a rule to route emails to different accounts based on recipient, subject, or plugin type.', 'postwave' ); ?></p>
+      </div>
+      <?php endif; ?>
       <?php if ( ! empty( $rules ) ) : ?>
       <div class="pw-panel" style="margin-bottom:20px;">
         <div class="pw-panel-body pw-panel-body-flush">

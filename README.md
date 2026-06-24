@@ -14,7 +14,7 @@ Postwave JMAP replaces WordPress's built-in mailer with the modern [JMAP protoco
 [![WordPress](https://img.shields.io/badge/WordPress-5.8%2B-blue?logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4?logo=php&logoColor=white)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL%202.0-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.0-6366f1)](https://github.com/Tahhan-nl/postwave-jmap/releases)
+[![Version](https://img.shields.io/badge/Version-1.3.0-6366f1)](https://github.com/Tahhan-nl/postwave-jmap/releases)
 [![Tested up to](https://img.shields.io/badge/Tested%20up%20to-WP%206.7-success)](https://wordpress.org/)
 
 </div>
@@ -146,7 +146,7 @@ Postwave JMAP hooks pre_wp_mail
 
 ## Roadmap
 
-### ✅ Version 1.0 — Foundation *(current)*
+### ✅ Version 1.0 — Foundation
 - [x] Full JMAP RFC 8620 / 8621 implementation
 - [x] `/.well-known/jmap` auto-discovery with redirect following
 - [x] HTTP Basic authentication
@@ -163,27 +163,42 @@ Postwave JMAP hooks pre_wp_mail
 
 ---
 
-### 🔜 Version 1.1 — Reliability
-- [ ] **Retry queue** — failed sends automatically retried via WP-Cron
+### ✅ Version 1.1 — Reliability
+- [x] **Retry queue** — failed sends automatically retried via WP-Cron
+- [x] **Multiple from identities** — per-form or per-plugin sender overrides
+- [x] **Log export** — download mail log as CSV
+- [x] **Email open tracking** — optional pixel tracking with privacy controls
+
+---
+
+### ✅ Version 1.2 — Multi-account
+- [x] **Multiple JMAP accounts** — route different email types to different servers
+- [x] **Routing rules** — send password resets from account A, newsletters from account B
+- [x] **WooCommerce integration** — dedicated routing for order emails
+- [x] **Fluent Forms / Gravity Forms integration** — per-form sender identity
+
+---
+
+### ✅ Version 1.3 — Polish *(current)*
+- [x] **Setup wizard overlay** — guided first-time configuration
+- [x] **Status bar** — send statistics on the General tab
+- [x] **Empty states** — Accounts, Routing, and Mail Log tabs
+- [x] **Toast notifications** — save action feedback
+- [x] **uninstall.php** — clean plugin removal
+- [x] **UI polish** — accessibility and documentation updates
+
+---
+
+### 🚀 Version 1.4 — Advanced routing
 - [ ] **Delivery status webhooks** — listen for JMAP push notifications
-- [ ] **Multiple from identities** — per-form or per-plugin sender overrides
-- [ ] **Log export** — download mail log as CSV
-- [ ] **Email open tracking** — optional pixel tracking with privacy controls
+- [ ] **Bounce handling** — parse delivery failure reports, mark addresses as bounced
+- [ ] **Fluent Forms / Gravity Forms** — per-form sender identity
 
 ---
 
-### 🔮 Version 1.2 — Multi-account
-- [ ] **Multiple JMAP accounts** — route different email types to different servers
-- [ ] **Routing rules** — send password resets from account A, newsletters from account B
-- [ ] **WooCommerce integration** — dedicated routing for order emails
-- [ ] **Fluent Forms / Gravity Forms integration** — per-form sender identity
-
----
-
-### 🚀 Version 2.0 — Platform
+### 🔮 Version 2.0 — Platform
 - [ ] **OAuth 2.0 / XOAUTH2** — passwordless authentication for supported servers
 - [ ] **Transactional email templates** — beautiful HTML email templates built in
-- [ ] **Bounce handling** — parse delivery failure reports, mark addresses as bounced
 - [ ] **Suppression list** — never send to bounced or unsubscribed addresses
 
 ---

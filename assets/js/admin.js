@@ -619,4 +619,96 @@
     list.appendChild( row );
   }
 
+  // ── Toast system ─────────────────────────────────────────────
+  function pwToast( message, type ) {
+    type = type || 'success';
+    var container = document.getElementById( 'pw-toast' );
+    if ( ! container ) return;
+    var item = document.createElement( 'div' );
+    item.className = 'pw-toast__item pw-toast__item--' + type;
+    item.textContent = message;
+    container.appendChild( item );
+    setTimeout( function() { item.classList.add( 'pw-toast__item--show' ); }, 20 );
+    setTimeout( function() {
+      item.classList.remove( 'pw-toast__item--show' );
+      setTimeout( function() { item.parentNode && item.parentNode.removeChild( item ); }, 300 );
+    }, 3500 );
+  }
+  window.pwToast = pwToast;
+
+  // ── Wizard step navigation ────────────────────────────────────
+  function initWizardOverlay() {
+    var overlay = document.getElementById( 'pw-wizard' );
+    if ( ! overlay ) return;
+
+    var currentStep = 0;
+    var steps = overlay.querySelectorAll( '.pw-wizard__step' );
+    var dots  = overlay.querySelectorAll( '.pw-wizard__step-dot' );
+
+    function showStep( idx ) {
+      steps.forEach( function( s, i ) {
+        s.classList.toggle( 'pw-wizard__step--active', i === idx );
+      } );
+      dots.forEach( function( d, i ) {
+        d.classList.toggle( 'pw-wizard__step-dot--active', i === idx );
+      } );
+      currentStep = idx;
+    }
+
+    // Next buttons
+    overlay.querySelectorAll( '[data-wizard-next]' ).forEach( function( btn ) {
+      btn.addEventListener( 'click', function() {
+        var next = parseInt( btn.getAttribute( 'data-wizard-next' ), 10 );
+        showStep( next );
+      } );
+    } );
+
+    // Skip link
+    var skip = overlay.querySelector( '[data-wizard-skip]' );
+    if ( skip ) {
+      skip.addEventListener( 'click', function(e) {
+        e.preventDefault();
+        overlay.classList.remove( 'pw-wizard--active' );
+      } );
+    }
+
+    // Finish button
+    var finish = overlay.querySelector( '[data-wizard-finish]' );
+    if ( finish ) {
+      finish.addEventListener( 'click', function() {
+        overlay.classList.remove( 'pw-wizard--active' );
+      } );
+    }
+
+    showStep( 0 );
+  }
+
+  // ── Relative time ─────────────────────────────────────────────
+  function initRelativeTime() {
+    document.querySelectorAll( '[data-timestamp]' ).forEach( function( el ) {
+      var ts = parseInt( el.getAttribute( 'data-timestamp' ), 10 );
+      if ( ! ts ) return;
+      var now  = Math.floor( Date.now() / 1000 );
+      var diff = now - ts;
+      var label;
+      if ( diff < 60 )        { label = 'just now'; }
+      else if ( diff < 3600 ) { label = Math.floor( diff / 60 ) + 'm ago'; }
+      else if ( diff < 86400 ){ label = Math.floor( diff / 3600 ) + 'h ago'; }
+      else                    { label = Math.floor( diff / 86400 ) + 'd ago'; }
+      el.textContent = label;
+      el.title = el.getAttribute( 'data-date' ) || '';
+    } );
+  }
+
+  document.addEventListener( 'DOMContentLoaded', function() {
+    initWizardOverlay();
+    initRelativeTime();
+
+    // Show toast for WP admin notices (settings saved)
+    var url = window.location.href;
+    if ( url.indexOf( 'settings-updated=1' ) !== -1 || url.indexOf( 'saved=1' ) !== -1 ) {
+      pwToast( 'Settings saved.' );
+    }
+  } );
+
 })();
