@@ -56,7 +56,7 @@ class Postwave_Admin {
 		check_admin_referer( 'postwave_save' );
 
 		$old = get_option( POSTWAVE_OPTION_KEY, array() );
-		$in  = $_POST['postwave'] ?? array();
+		$in  = isset( $_POST['postwave'] ) ? (array) wp_unslash( $_POST['postwave'] ) : array();
 
 		$settings = array(
 			'enabled'          => ! empty( $in['enabled'] ) ? 1 : 0,
@@ -130,8 +130,8 @@ class Postwave_Admin {
 		$options     = get_option( POSTWAVE_OPTION_KEY, array() );
 		$stats       = Postwave_Mail_Log::get_stats();
 		$entries     = Postwave_Mail_Log::get_entries();
-		$tab         = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'general';
-		$is_setup    = empty( $options['server_url'] ) && ! isset( $_GET['skip'] );
+		$tab         = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$is_setup    = empty( $options['server_url'] ) && ! isset( $_GET['skip'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$retry_count = Postwave_Retry_Queue::get_count();
 		$accounts    = Postwave_Account_Manager::get_all();
 		$rules       = Postwave_Router::get_rules();
@@ -265,7 +265,7 @@ class Postwave_Admin {
 		}
 		check_admin_referer( 'postwave_save_account' );
 
-		$in = isset( $_POST['pw_account'] ) ? $_POST['pw_account'] : array();
+		$in = isset( $_POST['pw_account'] ) ? (array) wp_unslash( $_POST['pw_account'] ) : array();
 
 		$data = array(
 			'id'             => sanitize_key( isset( $in['id'] ) ? $in['id'] : '' ),
@@ -322,7 +322,7 @@ class Postwave_Admin {
 		}
 		check_admin_referer( 'postwave_save_rule' );
 
-		$in = isset( $_POST['pw_rule'] ) ? $_POST['pw_rule'] : array();
+		$in = isset( $_POST['pw_rule'] ) ? (array) wp_unslash( $_POST['pw_rule'] ) : array();
 
 		// Parse conditions from flat POST arrays.
 		$condition_fields = array_values( (array) ( isset( $in['condition_field'] ) ? $in['condition_field'] : array() ) );

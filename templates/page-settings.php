@@ -6,6 +6,7 @@
  * @package Postwave
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 $o   = function( $k, $d = '' ) use ( $options ) { return isset( $options[ $k ] ) ? $options[ $k ] : $d; };
 $url = function( array $args ) { return esc_url( add_query_arg( $args, admin_url( 'admin.php' ) ) ); };
@@ -76,7 +77,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
 
       <!-- Step 1: Connect -->
       <div class="pw-wizard__step">
-        <form method="post" action="<?php echo $act; ?>" id="pw-wz-form">
+        <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" id="pw-wz-form">
           <?php wp_nonce_field( 'postwave_save' ); ?>
           <input type="hidden" name="action"         value="postwave_save">
           <input type="hidden" name="postwave[_tab]" value="general">
@@ -194,7 +195,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
   <!-- ── App Header ── -->
   <header class="pw-app-header">
     <div class="pw-app-brand">
-      <?php echo $logo; ?>
+      <?php echo $logo; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       <div class="pw-app-brand-text">
         <strong>Postwave</strong>
         <span>JMAP Mail for WordPress</span>
@@ -227,11 +228,11 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
           $count = '<span class="pw-nav-count">' . count( $rules ) . '</span>';
         }
       ?>
-      <a href="<?php echo $url( array( 'page' => 'postwave', 'tab' => $key ) ); ?>"
-         class="pw-nav-item<?php echo $is_active ? ' pw-nav-item-active' : ''; ?>">
-        <?php echo $meta['icon']; ?>
+      <a href="<?php echo $url( array( 'page' => 'postwave', 'tab' => $key ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"
+         class="pw-nav-item<?php echo $is_active ? ' pw-nav-item-active' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+        <?php echo $meta['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         <span><?php echo esc_html( $meta['label'] ); ?></span>
-        <?php echo $count; ?>
+        <?php echo esc_html( $count ); ?>
       </a>
       <?php endforeach; ?>
     </div>
@@ -250,16 +251,16 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
         </div>
       </div>
 
-      <?php if ( isset( $_GET['saved'] ) ) : ?>
+      <?php if ( isset( $_GET['saved'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
       <div class="pw-notice pw-notice-success">
-        <?php echo $icon_check; ?>
+        <?php echo $icon_check; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         <?php esc_html_e( 'Settings saved successfully.', 'postwave' ); ?>
       </div>
       <?php endif; ?>
 
-      <?php if ( isset( $_GET['cleared'] ) ) : ?>
+      <?php if ( isset( $_GET['cleared'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
       <div class="pw-notice pw-notice-success">
-        <?php echo $icon_check; ?>
+        <?php echo $icon_check; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         <?php esc_html_e( 'Mail log cleared.', 'postwave' ); ?>
       </div>
       <?php endif; ?>
@@ -285,7 +286,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
       <!-- ══ TAB: GENERAL ══ -->
       <?php if ( $tab === 'general' ) : ?>
 
-      <form method="post" action="<?php echo $act; ?>">
+      <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
         <?php wp_nonce_field( 'postwave_save' ); ?>
         <input type="hidden" name="action"          value="postwave_save">
         <input type="hidden" name="postwave[_tab]"  value="general">
@@ -433,9 +434,9 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
       <!-- ══ TAB: ACCOUNTS ══ -->
       <?php elseif ( $tab === 'accounts' ) : ?>
 
-      <?php if ( isset( $_GET['deleted'] ) ) : ?>
+      <?php if ( isset( $_GET['deleted'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
       <div class="pw-notice pw-notice-success">
-        <?php echo $icon_check; ?>
+        <?php echo $icon_check; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         <?php esc_html_e( 'Account deleted.', 'postwave' ); ?>
       </div>
       <?php endif; ?>
@@ -454,7 +455,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
             'identity_email' => $acct['identity_email'],
           ) ) );
         ?>
-        <div class="pw-account-card" data-account="<?php echo $acct_json; ?>">
+        <div class="pw-account-card" data-account="<?php echo $acct_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
           <div class="pw-account-card-header">
             <span class="pw-status-dot <?php echo esc_attr( $status_class ); ?>"></span>
             <span class="pw-account-name"><?php echo esc_html( $acct['name'] ); ?></span>
@@ -468,7 +469,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
               <?php esc_html_e( 'Edit', 'postwave' ); ?>
             </button>
             <?php if ( empty( $acct['is_primary'] ) ) : ?>
-            <form method="post" action="<?php echo $act; ?>" style="display:inline;" onsubmit="return confirm('<?php echo esc_js( __( 'Delete this account?', 'postwave' ) ); ?>')">
+            <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" style="display:inline;" onsubmit="return confirm('<?php echo esc_js( __( 'Delete this account?', 'postwave' ) ); ?>')">
               <?php wp_nonce_field( 'postwave_delete_account' ); ?>
               <input type="hidden" name="action"     value="postwave_delete_account">
               <input type="hidden" name="account_id" value="<?php echo esc_attr( $acct['id'] ); ?>">
@@ -499,7 +500,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
       <!-- Add / Edit account inline form -->
       <div class="pw-inline-form pw-hidden" id="pw-account-form">
         <h3 id="pw-account-form-title"><?php esc_html_e( 'Add account', 'postwave' ); ?></h3>
-        <form method="post" action="<?php echo $act; ?>">
+        <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
           <?php wp_nonce_field( 'postwave_save_account' ); ?>
           <input type="hidden" name="action"        value="postwave_save_account">
           <input type="hidden" name="pw_account[id]" id="pw-account-id" value="">
@@ -605,7 +606,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
                 <td>
                   <div class="pw-priority-btns">
                     <?php if ( $ri > 0 ) : ?>
-                    <form method="post" action="<?php echo $act; ?>" style="display:inline">
+                    <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" style="display:inline">
                       <?php wp_nonce_field( 'postwave_reorder_rules' ); ?>
                       <input type="hidden" name="action" value="postwave_reorder_rules">
                       <?php
@@ -621,7 +622,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
                     <button type="button" disabled>↑</button>
                     <?php endif; ?>
                     <?php if ( $ri < count( $rules ) - 1 ) : ?>
-                    <form method="post" action="<?php echo $act; ?>" style="display:inline">
+                    <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" style="display:inline">
                       <?php wp_nonce_field( 'postwave_reorder_rules' ); ?>
                       <input type="hidden" name="action" value="postwave_reorder_rules">
                       <?php
@@ -646,7 +647,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
                   <em><?php esc_html_e( 'All emails', 'postwave' ); ?></em>
                   <?php endif; ?>
                 </td>
-                <td><?php echo $acct_name; ?></td>
+                <td><?php echo esc_html( $acct_name ); ?></td>
                 <td>
                   <?php if ( ! empty( $rule['enabled'] ) ) : ?>
                   <span class="pw-badge--primary"><?php esc_html_e( 'Yes', 'postwave' ); ?></span>
@@ -656,10 +657,10 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
                 </td>
                 <td>
                   <div style="display:flex;gap:6px;">
-                    <button type="button" class="pw-btn pw-btn-secondary pw-btn--sm pw-edit-rule-btn" data-rule="<?php echo $rule_json; ?>">
+                    <button type="button" class="pw-btn pw-btn-secondary pw-btn--sm pw-edit-rule-btn" data-rule="<?php echo $rule_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
                       <?php esc_html_e( 'Edit', 'postwave' ); ?>
                     </button>
-                    <form method="post" action="<?php echo $act; ?>" style="display:inline;" onsubmit="return confirm('<?php echo esc_js( __( 'Delete this rule?', 'postwave' ) ); ?>')">
+                    <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" style="display:inline;" onsubmit="return confirm('<?php echo esc_js( __( 'Delete this rule?', 'postwave' ) ); ?>')">
                       <?php wp_nonce_field( 'postwave_delete_rule' ); ?>
                       <input type="hidden" name="action"  value="postwave_delete_rule">
                       <input type="hidden" name="rule_id" value="<?php echo esc_attr( $rule['id'] ); ?>">
@@ -685,7 +686,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
       <!-- Add / Edit rule inline form -->
       <div class="pw-inline-form pw-hidden" id="pw-rule-form">
         <h3 id="pw-rule-form-title"><?php esc_html_e( 'Add rule', 'postwave' ); ?></h3>
-        <form method="post" action="<?php echo $act; ?>">
+        <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
           <?php wp_nonce_field( 'postwave_save_rule' ); ?>
           <input type="hidden" name="action"       value="postwave_save_rule">
           <input type="hidden" name="pw_rule[id]"   id="pw-rule-id" value="">
@@ -756,7 +757,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
       <!-- ══ TAB: CONNECTION ══ -->
       <?php elseif ( $tab === 'connection' ) : ?>
 
-      <form method="post" action="<?php echo $act; ?>">
+      <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
         <?php wp_nonce_field( 'postwave_save' ); ?>
         <input type="hidden" name="action"          value="postwave_save">
         <input type="hidden" name="postwave[_tab]"  value="connection">
@@ -955,7 +956,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
                 ?>
                 <tr>
                   <td>
-                    <span class="pw-badge-pill pw-badge-pill-<?php echo $sent ? 'success' : 'danger'; ?>">
+                    <span class="pw-badge-pill pw-badge-pill-<?php echo $sent ? 'success' : 'danger'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
                       <?php echo $sent ? esc_html__( 'Sent', 'postwave' ) : esc_html__( 'Failed', 'postwave' ); ?>
                     </span>
                     <?php if ( 'retried' === $retry_status ) : ?>

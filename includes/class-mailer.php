@@ -299,7 +299,7 @@ class Postwave_Mailer {
 			Postwave_Mail_Log::update_by_id( $log_id, array( 'error' => $message ) );
 		} else {
 			$entry_id = Postwave_Mail_Log::add( array_merge( $log, array( 'status' => 'failed', 'error' => $message ) ) );
-			do_action( 'wp_mail_failed', new WP_Error( 'wp_mail_failed', $message ) );
+			do_action( 'wp_mail_failed', new WP_Error( 'wp_mail_failed', $message ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			// Queue for retry if enabled and this is the original send attempt.
 			if ( ! $is_retry && ! empty( $this->options['retry_enabled'] ) && ! empty( $atts ) ) {

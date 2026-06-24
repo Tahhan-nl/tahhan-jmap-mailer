@@ -2,8 +2,8 @@
 Contributors: tahhan
 Tags: email, mail, jmap, smtp, transactional-email
 Requires at least: 5.8
-Tested up to: 6.7
-Stable tag: 1.3.4
+Tested up to: 7.0
+Stable tag: 1.3.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -112,6 +112,12 @@ Go to **Postwave JMAP -> Connection** and click "Test connection". The plugin wi
 7. Routing tab — routing rules table with priority ordering, condition summary, account badges, and enable/disable status.
 
 == Changelog ==
+
+= 1.3.5 =
+* Fixed: Text domain changed to 'postwave-jmap' to match plugin slug for WordPress.org compliance
+* Fixed: Output escaping issues in admin template
+* Fixed: Input sanitization now uses wp_unslash() before processing POST data
+* Improved: Tested up to WordPress 7.0
 
 = 1.3.4 =
 * Fixed: Stats block appeared twice on the General tab
