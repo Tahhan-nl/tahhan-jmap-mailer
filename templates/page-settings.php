@@ -285,25 +285,6 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
       <!-- ══ TAB: GENERAL ══ -->
       <?php if ( $tab === 'general' ) : ?>
 
-      <div class="pw-status-bar">
-        <div class="pw-status-item">
-          <span class="pw-status-num"><?php echo esc_html( $stats['sent_today'] ); ?></span>
-          <span class="pw-status-label"><?php esc_html_e( 'Sent today', 'postwave' ); ?></span>
-        </div>
-        <div class="pw-status-item">
-          <span class="pw-status-num"><?php echo esc_html( $stats['sent_week'] ); ?></span>
-          <span class="pw-status-label"><?php esc_html_e( 'Sent this week', 'postwave' ); ?></span>
-        </div>
-        <div class="pw-status-item pw-status-item--<?php echo $stats['failed_today'] > 0 ? 'warn' : 'ok'; ?>">
-          <span class="pw-status-num"><?php echo esc_html( $stats['failed_today'] ); ?></span>
-          <span class="pw-status-label"><?php esc_html_e( 'Failed today', 'postwave' ); ?></span>
-        </div>
-        <div class="pw-status-item">
-          <span class="pw-status-num"><?php echo esc_html( $stats['total'] ); ?></span>
-          <span class="pw-status-label"><?php esc_html_e( 'Total logged', 'postwave' ); ?></span>
-        </div>
-      </div>
-
       <form method="post" action="<?php echo $act; ?>">
         <?php wp_nonce_field( 'postwave_save' ); ?>
         <input type="hidden" name="action"          value="postwave_save">
