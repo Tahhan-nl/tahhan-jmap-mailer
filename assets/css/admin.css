@@ -4,7 +4,12 @@
    to beat WordPress core styles cleanly.
 ═══════════════════════════════════════════ */
 
-/* ─── CSS custom properties ─── */
+/* ─── CSS custom properties — also on body so wizard overlay can inherit ─── */
+body.wp-admin {
+  --pw-accent:      #6366f1;
+  --pw-accent-d:    #4f46e5;
+  --pw-accent-l:    #eef2ff;
+}
 body.wp-admin #pw-page {
   --pw-accent:      #6366f1;
   --pw-accent-d:    #4f46e5;
@@ -1787,11 +1792,11 @@ body.wp-admin #pw-page .pw-add-condition {
     transition: background .2s, transform .1s;
 }
 .pw-wizard__btn--primary {
-    background: var(--pw-accent);
-    color: #fff;
+    background: var(--pw-accent, #6366f1);
+    color: #fff !important;
 }
 .pw-wizard__btn--primary:hover {
-    background: #4f46e5;
+    background: var(--pw-accent-d, #4f46e5);
     transform: translateY(-1px);
 }
 .pw-wizard__btn--ghost {
