@@ -1,13 +1,13 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Tahhan-nl/postwave-jmap/main/assets/img/banner-1544x500.png" alt="Postwave Banner" width="100%">
+<img src="https://raw.githubusercontent.com/Tahhan-nl/postwave-jmap/main/assets/img/banner-1544x500.png" alt="Tahhan JMAP Mailer Banner" width="100%">
 
-# Postwave
+# Tahhan JMAP Mailer
 
 ### Modern JMAP Mail for WordPress
 
 **Send every WordPress email through a real mail server — no SMTP ports, no relay limits, no deliverability headaches.**  
-Postwave replaces WordPress's built-in mailer with the modern [JMAP protocol](https://jmap.io/) (RFC 8620 / RFC 8621).
+Tahhan JMAP Mailer replaces WordPress's built-in mailer with the modern [JMAP protocol](https://jmap.io/) (RFC 8620 / RFC 8621).
 
 ---
 
@@ -21,13 +21,13 @@ Postwave replaces WordPress's built-in mailer with the modern [JMAP protocol](ht
 
 ---
 
-## What is Postwave?
+## What is Tahhan JMAP Mailer?
 
 Most WordPress sites send email through SMTP — a protocol designed in 1982. It requires open ports, relay credentials, and third-party services that rate-limit you or charge per email.
 
-**Postwave** takes a different approach: it uses **JMAP** (JSON Meta Application Protocol), the modern RFC-standard replacement for IMAP/SMTP. JMAP talks over standard HTTPS, works through firewalls, requires no port configuration, and is supported by modern mail servers like [Stalwart Mail Server](https://stalw.art), [Fastmail](https://fastmail.com), and [Cyrus IMAP](https://www.cyrusimap.org/).
+**Tahhan JMAP Mailer** takes a different approach: it uses **JMAP** (JSON Meta Application Protocol), the modern RFC-standard replacement for IMAP/SMTP. JMAP talks over standard HTTPS, works through firewalls, requires no port configuration, and is supported by modern mail servers like [Stalwart Mail Server](https://stalw.art), [Fastmail](https://fastmail.com), and [Cyrus IMAP](https://www.cyrusimap.org/).
 
-> **TL;DR** — Install Postwave, enter your JMAP server URL + credentials, and every `wp_mail()` call on your site is delivered through your own mail infrastructure.
+> **TL;DR** — Install Tahhan JMAP Mailer, enter your JMAP server URL + credentials, and every `wp_mail()` call on your site is delivered through your own mail infrastructure.
 
 ---
 
@@ -74,7 +74,7 @@ Most WordPress sites send email through SMTP — a protocol designed in 1982. It
 ### Manually via FTP
 1. Download and unzip the release
 2. Upload the `postwave/` folder to `/wp-content/plugins/`
-3. Go to **Plugins** in WordPress admin and activate **Postwave**
+3. Go to **Plugins** in WordPress admin and activate **Tahhan JMAP Mailer**
 
 ### Via WP-CLI
 ```bash
@@ -85,7 +85,7 @@ wp plugin install https://github.com/Tahhan-nl/postwave-jmap/releases/latest/dow
 
 ## Configuration
 
-After activation, Postwave shows a **setup wizard** if no server is configured yet.
+After activation, Tahhan JMAP Mailer shows a **setup wizard** if no server is configured yet.
 
 ### Step 1 — Server
 Enter your JMAP server base URL (e.g. `https://mail.example.com`).  
@@ -97,11 +97,11 @@ Set the **From Name** and **From Email** address for outgoing mail.
 Optionally add a **Test Recipient** for the "Send Test Email" button.
 
 ### Step 3 — Activate
-Toggle **Enable Postwave** to start routing all WordPress mail through JMAP.
+Toggle **Enable Tahhan JMAP Mailer** to start routing all WordPress mail through JMAP.
 
 ### Testing the connection
-Go to **Postwave → Connection** and click **Test connection**.  
-Postwave will:
+Go to **Tahhan JMAP Mailer → Connection** and click **Test connection**.  
+Tahhan JMAP Mailer will:
 1. Discover the JMAP session
 2. Resolve the sender identity
 3. Verify server capabilities
@@ -129,7 +129,7 @@ Click **Send test email** to fire a real email through the full send pipeline.
 WordPress calls wp_mail()
         │
         ▼
-Postwave hooks pre_wp_mail
+Tahhan JMAP Mailer hooks pre_wp_mail
         │
         ├─ Discovers JMAP session (/.well-known/jmap)
         ├─ Resolves sender identity (Identity/get)
@@ -205,7 +205,7 @@ Postwave hooks pre_wp_mail
 
 ## Privacy
 
-Postwave stores the following per email attempt in `wp_options`:
+Tahhan JMAP Mailer stores the following per email attempt in `wp_options`:
 - Timestamp
 - Recipient address(es)
 - Subject line
@@ -214,7 +214,7 @@ Postwave stores the following per email attempt in `wp_options`:
 - Error message (if failed)
 
 **Message bodies, CC/BCC addresses, and attachment contents are never stored.**  
-The log is capped at 100 entries. You can clear it at any time from **Postwave → Mail Log**.
+The log is capped at 100 entries. You can clear it at any time from **Tahhan JMAP Mailer → Mail Log**.
 
 ---
 
@@ -239,10 +239,10 @@ add_filter( 'postwave_request_args', function( $args, $method ) {
 }, 10, 2 );
 ```
 
-### Bypass Postwave for a single send
+### Bypass Tahhan JMAP Mailer for a single send
 
 ```php
-remove_filter( 'pre_wp_mail', [ Postwave_Mailer::class, 'send' ], 10 );
+remove_filter( 'pre_wp_mail', [ Tahhan JMAP Mailer_Mailer::class, 'send' ], 10 );
 wp_mail( $to, $subject, $message );
 ```
 
@@ -267,10 +267,10 @@ Found a vulnerability? Please report it privately via [GitHub Security Advisorie
 
 ## License
 
-Postwave is open-source software licensed under the [GNU General Public License v2.0](LICENSE).
+Tahhan JMAP Mailer is open-source software licensed under the [GNU General Public License v2.0](LICENSE).
 
 ```
-Postwave — JMAP Mail for WordPress
+Tahhan JMAP Mailer — JMAP Mail for WordPress
 Copyright (C) 2026 Tahhan.nl
 
 This program is free software: you can redistribute it and/or modify

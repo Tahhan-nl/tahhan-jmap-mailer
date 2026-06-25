@@ -1,8 +1,8 @@
 <?php
 /**
- * Postwave Open Tracker — privacy-first, opt-in email open pixel tracking.
+ * Tahhan JMAP Mailer Open Tracker — privacy-first, opt-in email open pixel tracking.
  *
- * @package Postwave
+ * @package Tahhan_JMAP_Mailer
  * @license GPL-2.0-or-later
  */
 

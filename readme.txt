@@ -1,5 +1,5 @@
-=== Postwave ===
-Contributors: tahhan
+=== Tahhan JMAP Mailer ===
+Contributors: mustafatahhan
 Tags: email, mail, jmap, smtp, transactional-email
 Requires at least: 5.8
 Tested up to: 7.0
@@ -12,11 +12,11 @@ Send WordPress emails via the modern JMAP protocol — no SMTP ports needed.
 
 == Description ==
 
-Postwave replaces WordPress's built-in mailer with the modern **JMAP protocol** (RFC 8620 / RFC 8621). JMAP is the successor to IMAP and SMTP, designed from scratch for the modern web. It communicates over standard HTTPS, works through firewalls and NAT without any special port configuration, and is natively supported by leading mail servers such as Stalwart Mail Server, Fastmail, and Cyrus IMAP.
+Tahhan JMAP Mailer replaces WordPress's built-in mailer with the modern **JMAP protocol** (RFC 8620 / RFC 8621). JMAP is the successor to IMAP and SMTP, designed from scratch for the modern web. It communicates over standard HTTPS, works through firewalls and NAT without any special port configuration, and is natively supported by leading mail servers such as Stalwart Mail Server, Fastmail, and Cyrus IMAP.
 
-Unlike SMTP plugins that require relay credentials, third-party services, or open ports, Postwave connects directly to your own JMAP-capable mail server using HTTP Basic authentication over an encrypted HTTPS connection. The JMAP session is auto-discovered from `/.well-known/jmap` — no manual API URL configuration needed.
+Unlike SMTP plugins that require relay credentials, third-party services, or open ports, Tahhan JMAP Mailer connects directly to your own JMAP-capable mail server using HTTP Basic authentication over an encrypted HTTPS connection. The JMAP session is auto-discovered from `/.well-known/jmap` — no manual API URL configuration needed.
 
-Postwave is built as a proper WordPress plugin: it uses `wp_remote_get/post`, `WP_Error`, WordPress nonces, and the standard sanitization and escaping APIs throughout. There are zero external PHP dependencies. It hooks into `pre_wp_mail` to intercept every `wp_mail()` call site-wide and deliver the email through a two-step JMAP pipeline: `Email/set` to create the email object, followed by `EmailSubmission/set` to submit it for delivery.
+Tahhan JMAP Mailer is built as a proper WordPress plugin: it uses `wp_remote_get/post`, `WP_Error`, WordPress nonces, and the standard sanitization and escaping APIs throughout. There are zero external PHP dependencies. It hooks into `pre_wp_mail` to intercept every `wp_mail()` call site-wide and deliver the email through a two-step JMAP pipeline: `Email/set` to create the email object, followed by `EmailSubmission/set` to submit it for delivery.
 
 Every send attempt is logged (recipient, subject, status, JMAP IDs) in a capped mail log — message bodies are never stored. The plugin ships with a full admin UI including a setup wizard, live connection testing, multi-account management, conditional routing rules, a retry queue with exponential backoff, open tracking, CSV log export, and WooCommerce email type detection.
 
@@ -38,7 +38,7 @@ Every send attempt is logged (recipient, subject, status, JMAP IDs) in a capped 
 
 == Compatible Servers ==
 
-Postwave works with any mail server that implements RFC 8621 (JMAP for Mail):
+Tahhan JMAP Mailer works with any mail server that implements RFC 8621 (JMAP for Mail):
 
 * **Stalwart Mail Server** — Full JMAP support, recommended for self-hosted setups
 * **Fastmail** — Full JMAP support, commercial hosted service
@@ -52,7 +52,7 @@ Postwave works with any mail server that implements RFC 8621 (JMAP for Mail):
 2. In your WordPress admin, go to **Plugins -> Add New -> Upload Plugin**.
 3. Upload the ZIP file and click **Install Now**.
 4. Click **Activate Plugin**.
-5. Go to **Postwave** in the left menu and follow the setup wizard to configure your JMAP server.
+5. Go to **Tahhan JMAP Mailer** in the left menu and follow the setup wizard to configure your JMAP server.
 
 == Frequently Asked Questions ==
 
@@ -63,10 +63,10 @@ JMAP (JSON Meta Application Protocol) is a modern, open-standard protocol (RFC 8
 SMTP was designed in 1982 and requires specific TCP ports (25, 465, 587) that are often blocked by firewalls and hosting providers. JMAP works over standard HTTPS (port 443), requires no relay configuration, has no port restrictions, and uses a modern JSON-based API that is far easier to work with programmatically.
 
 = Which mail servers support JMAP? =
-Stalwart Mail Server, Fastmail, Cyrus IMAP, and Apache James all support JMAP fully. Any server implementing RFC 8621 will work with Postwave.
+Stalwart Mail Server, Fastmail, Cyrus IMAP, and Apache James all support JMAP fully. Any server implementing RFC 8621 will work with Tahhan JMAP Mailer.
 
-= Does Postwave work with WooCommerce? =
-Yes. Postwave includes WooCommerce email type detection. You can create routing rules that detect WooCommerce emails (order confirmations, customer invoices, admin notifications) and route them to a dedicated transactional email account for better deliverability.
+= Does Tahhan JMAP Mailer work with WooCommerce? =
+Yes. Tahhan JMAP Mailer includes WooCommerce email type detection. You can create routing rules that detect WooCommerce emails (order confirmations, customer invoices, admin notifications) and route them to a dedicated transactional email account for better deliverability.
 
 = Can I use multiple JMAP accounts? =
 Yes. The Accounts tab lets you configure multiple JMAP accounts. You can set one as the Primary account (used by default) and configure additional accounts such as a dedicated transactional account for WooCommerce or a support-specific account.
@@ -75,7 +75,7 @@ Yes. The Accounts tab lets you configure multiple JMAP accounts. You can set one
 Routing rules are evaluated in order from top to bottom. The first matching rule wins. Each rule can match on recipient email, recipient domain, sender email, subject content, or plugin/email type. You can match ANY condition (OR logic) or ALL conditions (AND logic). Non-matching emails fall back to the Primary account.
 
 = What is the retry queue? =
-When an email fails to send, Postwave can automatically retry it via WP-Cron. You configure the maximum number of retry attempts (1-5) and an initial delay (5 minutes to 1 hour). Each subsequent retry doubles the delay (exponential backoff). Permanently failed emails are marked as "exhausted" in the mail log.
+When an email fails to send, Tahhan JMAP Mailer can automatically retry it via WP-Cron. You configure the maximum number of retry attempts (1-5) and an initial delay (5 minutes to 1 hour). Each subsequent retry doubles the delay (exponential backoff). Permanently failed emails are marked as "exhausted" in the mail log.
 
 = What is open tracking? =
 Open tracking embeds a 1x1 transparent pixel in outgoing HTML emails. When a recipient opens the email, the pixel loads from your WordPress site, recording the open event. Plain-text emails are never tracked. All tracking data stays on your own server — nothing is sent to external services. You should disclose tracking in your privacy policy.
@@ -96,10 +96,10 @@ WordPress 5.8 or higher. The plugin is tested up to WordPress 6.7.
 The Primary account is the fallback account used for all emails that do not match a routing rule. It is created automatically during setup from your initial JMAP credentials. You can edit the Primary account's credentials on the Connection tab or in the Accounts tab.
 
 = How do sender identities work? =
-A JMAP identity defines the "From" name and email address used when sending. Postwave can auto-resolve the correct identity by matching your configured From Email to an identity on the JMAP server. You can also manually select a specific identity from the Connection tab by clicking "Load identities" after saving your credentials.
+A JMAP identity defines the "From" name and email address used when sending. Tahhan JMAP Mailer can auto-resolve the correct identity by matching your configured From Email to an identity on the JMAP server. You can also manually select a specific identity from the Connection tab by clicking "Load identities" after saving your credentials.
 
 = How do I test the connection? =
-Go to **Postwave -> Connection** and click "Test connection". The plugin will discover the JMAP session, resolve your sender identity, and verify server capabilities. You can also click "Send test email" to fire a real email through the full send pipeline to your configured test recipient.
+Go to **Tahhan JMAP Mailer -> Connection** and click "Test connection". The plugin will discover the JMAP session, resolve your sender identity, and verify server capabilities. You can also click "Send test email" to fire a real email through the full send pipeline to your configured test recipient.
 
 == Screenshots ==
 

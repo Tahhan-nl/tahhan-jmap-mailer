@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Postwave
+ * Plugin Name: Tahhan JMAP Mailer
  * Plugin URI:  https://github.com/Tahhan-nl/postwave-jmap
  * Description: Sends WordPress emails via the modern JMAP protocol (RFC 8620/8621). No SMTP ports needed — works with Stalwart, Fastmail, Cyrus and more. Includes live connection testing and full mail logging.
  * Version:     1.3.5
@@ -8,7 +8,7 @@
  * Author URI:  https://tahhan.nl
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: postwave
+ * Text Domain: tahhan-jmap-mailer
  * Domain Path: /languages
  * Requires at least: 5.8
  * Tested up to: 7.0
@@ -61,7 +61,7 @@ add_action( 'plugins_loaded', 'postwave_init' );
 
 function postwave_action_links( $links ) {
 	$url  = esc_url( admin_url( 'admin.php?page=postwave' ) );
-	array_unshift( $links, '<a href="' . $url . '">' . esc_html__( 'Settings', 'postwave' ) . '</a>' );
+	array_unshift( $links, '<a href="' . $url . '">' . esc_html__( 'Settings', 'tahhan-jmap-mailer' ) . '</a>' );
 	return $links;
 }
 add_filter( 'plugin_action_links_' . POSTWAVE_PLUGIN_BASE, 'postwave_action_links' );

@@ -1,8 +1,8 @@
 <?php
 /**
- * Postwave WooCommerce Integration — context detection for routing.
+ * Tahhan JMAP Mailer WooCommerce Integration — context detection for routing.
  *
- * @package Postwave
+ * @package Tahhan_JMAP_Mailer
  * @license GPL-2.0-or-later
  */
 

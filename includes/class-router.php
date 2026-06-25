@@ -1,8 +1,8 @@
 <?php
 /**
- * Postwave Router — email routing rules engine and plugin context tracking.
+ * Tahhan JMAP Mailer Router — email routing rules engine and plugin context tracking.
  *
- * @package Postwave
+ * @package Tahhan_JMAP_Mailer
  * @license GPL-2.0-or-later
  */
 
@@ -78,7 +78,7 @@ class Postwave_Router {
 
 		$rule = array(
 			'id'                 => $id,
-			'name'               => sanitize_text_field( isset( $data['name'] ) ? $data['name'] : __( 'Rule', 'postwave' ) ),
+			'name'               => sanitize_text_field( isset( $data['name'] ) ? $data['name'] : __( 'Rule', 'tahhan-jmap-mailer' ) ),
 			'enabled'            => ! empty( $data['enabled'] ),
 			'conditions'         => $conditions,
 			'condition_operator' => $condition_operator,

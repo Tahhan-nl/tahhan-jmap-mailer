@@ -1,8 +1,8 @@
 <?php
 /**
- * Postwave Client — session discovery, API requests, blob uploads.
+ * Tahhan JMAP Mailer Client — session discovery, API requests, blob uploads.
  *
- * @package Postwave
+ * @package Tahhan_JMAP_Mailer
  * @license GPL-2.0-or-later
  */
 
@@ -42,7 +42,7 @@ class Postwave_JMAP_Client {
 			return new WP_Error(
 				'postwave_session_http',
 				/* translators: %d: HTTP status code */
-				sprintf( __( 'Session discovery failed with HTTP %d.', 'postwave' ), $code )
+				sprintf( __( 'Session discovery failed with HTTP %d.', 'tahhan-jmap-mailer' ), $code )
 			);
 		}
 
@@ -50,11 +50,11 @@ class Postwave_JMAP_Client {
 		$this->session = json_decode( $body, true );
 
 		if ( ! is_array( $this->session ) ) {
-			return new WP_Error( 'postwave_session_json', __( 'Session response is not valid JSON.', 'postwave' ) );
+			return new WP_Error( 'postwave_session_json', __( 'Session response is not valid JSON.', 'tahhan-jmap-mailer' ) );
 		}
 
 		if ( empty( $this->session['apiUrl'] ) ) {
-			return new WP_Error( 'postwave_session_api', __( 'Session response is missing apiUrl.', 'postwave' ) );
+			return new WP_Error( 'postwave_session_api', __( 'Session response is missing apiUrl.', 'tahhan-jmap-mailer' ) );
 		}
 
 		$this->session['apiUrl'] = $this->normalize_url( $this->session['apiUrl'] );
@@ -68,7 +68,7 @@ class Postwave_JMAP_Client {
 		if ( ! empty( $this->session['primaryAccounts']['urn:ietf:params:jmap:mail'] ) ) {
 			$this->account_id = $this->session['primaryAccounts']['urn:ietf:params:jmap:mail'];
 		} else {
-			return new WP_Error( 'postwave_no_account', __( 'No primary mail account found in the JMAP session.', 'postwave' ) );
+			return new WP_Error( 'postwave_no_account', __( 'No primary mail account found in the JMAP session.', 'tahhan-jmap-mailer' ) );
 		}
 
 		return true;
@@ -96,11 +96,11 @@ class Postwave_JMAP_Client {
 
 		if ( in_array( $code, array( 301, 302, 303, 307, 308 ), true ) ) {
 			if ( $depth < 1 ) {
-				return new WP_Error( 'postwave_redirect_limit', __( 'Session discovery exceeded the redirect limit.', 'postwave' ) );
+				return new WP_Error( 'postwave_redirect_limit', __( 'Session discovery exceeded the redirect limit.', 'tahhan-jmap-mailer' ) );
 			}
 			$location = wp_remote_retrieve_header( $response, 'location' );
 			if ( empty( $location ) ) {
-				return new WP_Error( 'postwave_redirect_missing', __( 'Redirect response is missing a Location header.', 'postwave' ) );
+				return new WP_Error( 'postwave_redirect_missing', __( 'Redirect response is missing a Location header.', 'tahhan-jmap-mailer' ) );
 			}
 			return $this->fetch_session_document( $this->resolve_url( $url, $location ), $depth - 1 );
 		}
@@ -211,14 +211,14 @@ class Postwave_JMAP_Client {
 			return new WP_Error(
 				'postwave_api_http',
 				/* translators: %d: HTTP status code */
-				sprintf( __( 'JMAP API request failed with HTTP %d', 'postwave' ), $code ) . $detail
+				sprintf( __( 'JMAP API request failed with HTTP %d', 'tahhan-jmap-mailer' ), $code ) . $detail
 			);
 		}
 
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		if ( ! isset( $body['methodResponses'] ) ) {
-			return new WP_Error( 'postwave_api_response', __( 'JMAP response is missing methodResponses.', 'postwave' ) );
+			return new WP_Error( 'postwave_api_response', __( 'JMAP response is missing methodResponses.', 'tahhan-jmap-mailer' ) );
 		}
 
 		return $body['methodResponses'];
@@ -240,7 +240,7 @@ class Postwave_JMAP_Client {
 		}
 
 		if ( empty( $this->upload_url ) ) {
-			return new WP_Error( 'postwave_no_upload_url', __( 'JMAP server does not provide an upload URL.', 'postwave' ) );
+			return new WP_Error( 'postwave_no_upload_url', __( 'JMAP server does not provide an upload URL.', 'tahhan-jmap-mailer' ) );
 		}
 
 		$url      = str_replace( '{accountId}', rawurlencode( $this->account_id ), $this->upload_url );
@@ -264,14 +264,14 @@ class Postwave_JMAP_Client {
 			return new WP_Error(
 				'postwave_upload_http',
 				/* translators: %d: HTTP status code */
-				sprintf( __( 'Blob upload failed with HTTP %d.', 'postwave' ), $code )
+				sprintf( __( 'Blob upload failed with HTTP %d.', 'tahhan-jmap-mailer' ), $code )
 			);
 		}
 
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		if ( empty( $body['blobId'] ) ) {
-			return new WP_Error( 'postwave_upload_blob', __( 'Upload response is missing blobId.', 'postwave' ) );
+			return new WP_Error( 'postwave_upload_blob', __( 'Upload response is missing blobId.', 'tahhan-jmap-mailer' ) );
 		}
 
 		return $body['blobId'];
@@ -295,7 +295,7 @@ class Postwave_JMAP_Client {
 		$identities = $responses[0][1]['list'] ?? array();
 
 		if ( empty( $identities ) ) {
-			return new WP_Error( 'postwave_no_identities', __( 'No sending identities found on the JMAP server.', 'postwave' ) );
+			return new WP_Error( 'postwave_no_identities', __( 'No sending identities found on the JMAP server.', 'tahhan-jmap-mailer' ) );
 		}
 
 		foreach ( $identities as $identity ) {
@@ -319,7 +319,7 @@ class Postwave_JMAP_Client {
 		}
 
 		if ( empty( $identity['id'] ) ) {
-			return new WP_Error( 'postwave_identity_id', __( 'The matched JMAP identity has no id.', 'postwave' ) );
+			return new WP_Error( 'postwave_identity_id', __( 'The matched JMAP identity has no id.', 'tahhan-jmap-mailer' ) );
 		}
 
 		return $identity['id'];
@@ -349,7 +349,7 @@ class Postwave_JMAP_Client {
 		return new WP_Error(
 			'postwave_no_mailbox',
 			/* translators: %s: mailbox role */
-			sprintf( __( 'No JMAP mailbox found with role "%s".', 'postwave' ), $role )
+			sprintf( __( 'No JMAP mailbox found with role "%s".', 'tahhan-jmap-mailer' ), $role )
 		);
 	}
 
@@ -386,7 +386,7 @@ class Postwave_JMAP_Client {
 
 		return new WP_Error(
 			'postwave_no_mailbox',
-			__( 'No JMAP mailbox found on this account. Please check your server configuration.', 'postwave' )
+			__( 'No JMAP mailbox found on this account. Please check your server configuration.', 'tahhan-jmap-mailer' )
 		);
 	}
 

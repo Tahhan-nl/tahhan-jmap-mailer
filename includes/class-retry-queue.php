@@ -1,8 +1,8 @@
 <?php
 /**
- * Postwave Retry Queue — automatically re-sends failed emails via WP-Cron.
+ * Tahhan JMAP Mailer Retry Queue — automatically re-sends failed emails via WP-Cron.
  *
- * @package Postwave
+ * @package Tahhan_JMAP_Mailer
  * @license GPL-2.0-or-later
  */
 
@@ -25,7 +25,7 @@ class Postwave_Retry_Queue {
 		if ( ! isset( $schedules['postwave_5min'] ) ) {
 			$schedules['postwave_5min'] = array(
 				'interval' => 300,
-				'display'  => __( 'Every 5 minutes (Postwave)', 'postwave' ),
+				'display'  => __( 'Every 5 minutes (Tahhan JMAP Mailer)', 'tahhan-jmap-mailer' ),
 			);
 		}
 		return $schedules;

@@ -1,8 +1,8 @@
 <?php
 /**
- * Postwave Account Manager — stores and retrieves multiple JMAP account configs.
+ * Tahhan JMAP Mailer Account Manager — stores and retrieves multiple JMAP account configs.
  *
- * @package Postwave
+ * @package Tahhan_JMAP_Mailer
  * @license GPL-2.0-or-later
  */
 
@@ -55,7 +55,7 @@ class Postwave_Account_Manager {
 
 		$accounts[ $id ] = array(
 			'id'             => $id,
-			'name'           => sanitize_text_field( isset( $data['name'] ) ? $data['name'] : __( 'Account', 'postwave' ) ),
+			'name'           => sanitize_text_field( isset( $data['name'] ) ? $data['name'] : __( 'Account', 'tahhan-jmap-mailer' ) ),
 			'server_url'     => esc_url_raw( trim( isset( $data['server_url'] ) ? $data['server_url'] : '' ) ),
 			'username'       => sanitize_text_field( isset( $data['username'] ) ? $data['username'] : '' ),
 			'password'       => $password,
@@ -111,7 +111,7 @@ class Postwave_Account_Manager {
 
 		self::save( array(
 			'id'             => 'acc_primary',
-			'name'           => __( 'Primary', 'postwave' ),
+			'name'           => __( 'Primary', 'tahhan-jmap-mailer' ),
 			'server_url'     => isset( $settings['server_url'] )     ? $settings['server_url']     : '',
 			'username'       => isset( $settings['username'] )       ? $settings['username']       : '',
 			'password'       => isset( $settings['password'] )       ? $settings['password']       : '',

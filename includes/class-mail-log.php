@@ -1,8 +1,8 @@
 <?php
 /**
- * Postwave Mail Log — stores send attempt metadata (never message bodies).
+ * Tahhan JMAP Mailer Mail Log — stores send attempt metadata (never message bodies).
  *
- * @package Postwave
+ * @package Tahhan_JMAP_Mailer
  * @license GPL-2.0-or-later
  */
 
