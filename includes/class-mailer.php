@@ -13,10 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Postwave_Mailer {
 
 	private $options;
+	private static $hooked = false;
 
 	public function __construct( array $options ) {
 		$this->options = $options;
 		add_filter( 'pre_wp_mail', array( $this, 'send' ), 10, 2 );
+		self::$hooked  = true;
+	}
+
+	public static function is_hooked() {
+		return self::$hooked;
 	}
 
 	/**
@@ -129,11 +135,16 @@ class Postwave_Mailer {
 
 		// Upload attachments.
 		$jmap_attachments = array();
+		$upload_base = realpath( wp_upload_dir()['basedir'] );
 		foreach ( (array) $attachments as $file ) {
 			if ( ! is_string( $file ) || ! file_exists( $file ) ) {
 				continue;
 			}
-			$data = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$real_path = realpath( $file );
+			if ( false === $real_path || false === $upload_base || 0 !== strncmp( $real_path, $upload_base, strlen( $upload_base ) ) ) {
+				continue;
+			}
+			$data = file_get_contents( $real_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 			if ( false === $data ) {
 				continue;
 			}

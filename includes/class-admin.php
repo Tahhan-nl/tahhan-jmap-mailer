@@ -98,14 +98,14 @@ class Postwave_Admin {
 			'postwave-admin',
 			POSTWAVE_PLUGIN_URL . 'assets/css/admin.css',
 			array(),
-			POSTWAVE_VERSION . '.5'
+			POSTWAVE_VERSION
 		);
 
 		wp_enqueue_script(
 			'postwave-admin',
 			POSTWAVE_PLUGIN_URL . 'assets/js/admin.js',
 			array(),
-			POSTWAVE_VERSION . '.5',
+			POSTWAVE_VERSION,
 			true
 		);
 
@@ -132,7 +132,7 @@ class Postwave_Admin {
 		$options = get_option( POSTWAVE_OPTION_KEY, array() );
 
 		// Persist wizard dismissal so it doesn't reappear on every page load.
-		if ( isset( $_GET['skip_wizard'] ) && '1' === $_GET['skip_wizard'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['skip_wizard'] ) && '1' === $_GET['skip_wizard'] && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'postwave_skip_wizard' ) ) {
 			$options['wizard_dismissed'] = 1;
 			update_option( POSTWAVE_OPTION_KEY, $options );
 		}
@@ -188,7 +188,7 @@ class Postwave_Admin {
 			$to = ! empty( $options['test_recipient'] ) ? $options['test_recipient']
 				: ( ! empty( $options['from_email'] ) ? $options['from_email'] : get_bloginfo( 'admin_email' ) );
 
-			if ( ! has_filter( 'pre_wp_mail' ) ) {
+			if ( ! Postwave_Mailer::is_hooked() ) {
 				new Postwave_Mailer( $options );
 			}
 
@@ -256,7 +256,7 @@ class Postwave_Admin {
 		}
 		check_admin_referer( 'postwave_export_log' );
 
-		$filename = 'postwave-mail-log-' . gmdate( 'Y-m-d' ) . '.csv';
+		$filename = 'tahhan-jmap-mail-log-' . gmdate( 'Y-m-d' ) . '.csv';
 		$csv      = Postwave_Mail_Log::to_csv();
 
 		header( 'Content-Type: text/csv; charset=utf-8' );

@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Postwave_Open_Tracker {
 
-	const REST_NAMESPACE = 'postwave/v1';
+	const REST_NAMESPACE = 'tahhan-jmap-mailer/v1';
 	const REST_ROUTE     = '/pixel/(?P<token>[a-f0-9]{64})';
 
 	public static function init() {

@@ -102,7 +102,13 @@ class Postwave_JMAP_Client {
 			if ( empty( $location ) ) {
 				return new WP_Error( 'postwave_redirect_missing', __( 'Redirect response is missing a Location header.', 'tahhan-jmap-mailer' ) );
 			}
-			return $this->fetch_session_document( $this->resolve_url( $url, $location ), $depth - 1 );
+			$next_url       = $this->resolve_url( $url, $location );
+			$redirect_host  = strtolower( (string) wp_parse_url( $next_url, PHP_URL_HOST ) );
+			$origin_host    = strtolower( (string) wp_parse_url( $this->server_url, PHP_URL_HOST ) );
+			if ( $redirect_host !== $origin_host ) {
+				return new WP_Error( 'postwave_redirect_cross_origin', __( 'Session discovery refused a cross-origin redirect.', 'tahhan-jmap-mailer' ) );
+			}
+			return $this->fetch_session_document( $next_url, $depth - 1 );
 		}
 
 		return $response;

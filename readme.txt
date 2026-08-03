@@ -2,8 +2,8 @@
 Contributors: mustafatahhan
 Tags: email, mail, jmap, smtp, transactional-email
 Requires at least: 5.8
-Tested up to: 7.0
-Stable tag: 1.3.5
+Tested up to: 6.7
+Stable tag: 1.3.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -113,11 +113,23 @@ Go to **Tahhan JMAP Mailer -> Connection** and click "Test connection". The plug
 
 == Changelog ==
 
+= 1.3.6 =
+* Security: Block cross-origin redirects during JMAP session discovery
+* Security: Restrict email attachments to the WordPress uploads directory
+* Security: Add nonce verification to wizard dismiss action
+* Security: Sanitize CSV export against formula injection attacks
+* Fixed: REST namespace updated to tahhan-jmap-mailer/v1
+* Fixed: Asset version string was incorrectly suffixed with .5
+* Fixed: CSV export filename now uses correct plugin name
+* Fixed: Tested up to changed to 6.7 (WordPress 7.0 does not exist)
+* Improved: has_filter check replaced with precise Mailer::is_hooked() method
+
+
 = 1.3.5 =
-* Fixed: Text domain changed to 'postwave-jmap' to match plugin slug for WordPress.org compliance
+* Fixed: Text domain is 'tahhan-jmap-mailer' throughout, matching the plugin slug
 * Fixed: Output escaping issues in admin template
 * Fixed: Input sanitization now uses wp_unslash() before processing POST data
-* Improved: Tested up to WordPress 7.0
+* Improved: Tested up to WordPress 6.7
 
 = 1.3.4 =
 * Fixed: Stats block appeared twice on the General tab

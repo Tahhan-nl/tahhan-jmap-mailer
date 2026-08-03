@@ -238,6 +238,9 @@ class Postwave_Mail_Log {
 
 	private static function csv_cell( $value ) {
 		$value = (string) $value;
+		if ( isset( $value[0] ) && in_array( $value[0], array( '=', '+', '-', '@' ), true ) ) {
+			$value = "'" . $value;
+		}
 		if ( false !== strpos( $value, ',' ) || false !== strpos( $value, '"' ) || false !== strpos( $value, "\n" ) ) {
 			$value = '"' . str_replace( '"', '""', $value ) . '"';
 		}

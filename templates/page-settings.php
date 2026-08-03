@@ -70,7 +70,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
           </li>
         </ul>
         <div class="pw-wizard__actions">
-          <a href="<?php echo esc_url( add_query_arg( 'skip_wizard', '1', admin_url( 'admin.php?page=postwave' ) ) ); ?>" class="pw-wizard__btn pw-wizard__btn--ghost"><?php esc_html_e( 'Skip for now', 'tahhan-jmap-mailer' ); ?></a>
+          <a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'skip_wizard', '1', admin_url( 'admin.php?page=postwave' ) ), 'postwave_skip_wizard' ) ); ?>" class="pw-wizard__btn pw-wizard__btn--ghost"><?php esc_html_e( 'Skip for now', 'tahhan-jmap-mailer' ); ?></a>
           <button type="button" class="pw-wizard__btn pw-wizard__btn--primary" data-wizard-next="1"><?php esc_html_e( 'Get Started', 'tahhan-jmap-mailer' ); ?> &rarr;</button>
         </div>
       </div>
@@ -141,7 +141,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
           </ul>
         </div>
         <div class="pw-wizard__actions" style="justify-content:center;">
-          <a href="<?php echo esc_url( add_query_arg( 'skip_wizard', '1', admin_url( 'admin.php?page=postwave' ) ) ); ?>" class="pw-wizard__btn pw-wizard__btn--primary"><?php esc_html_e( 'Go to Dashboard', 'tahhan-jmap-mailer' ); ?></a>
+          <a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'skip_wizard', '1', admin_url( 'admin.php?page=postwave' ) ), 'postwave_skip_wizard' ) ); ?>" class="pw-wizard__btn pw-wizard__btn--primary"><?php esc_html_e( 'Go to Dashboard', 'tahhan-jmap-mailer' ); ?></a>
         </div>
       </div>
 
@@ -266,13 +266,13 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
       <!-- Stats row (always visible) -->
       <div class="pw-stats-row">
         <?php
-        $stats_cfg = [
-          [ 'value' => $stats['sent_today'],   'label' => __( 'Sent today', 'tahhan-jmap-mailer' ),       'color' => 'blue' ],
-          [ 'value' => $stats['failed_today'], 'label' => __( 'Failed today', 'tahhan-jmap-mailer' ),     'color' => 'red'  ],
-          [ 'value' => $stats['sent_week'],    'label' => __( 'Sent this week', 'tahhan-jmap-mailer' ),   'color' => 'blue' ],
-          [ 'value' => $stats['failed_week'],  'label' => __( 'Failed this week', 'tahhan-jmap-mailer' ), 'color' => 'red'  ],
-          [ 'value' => $stats['total'],        'label' => __( 'Total logged', 'tahhan-jmap-mailer' ),     'color' => 'gray' ],
-        ];
+        $stats_cfg = array(
+          array( 'value' => $stats['sent_today'],   'label' => __( 'Sent today', 'tahhan-jmap-mailer' ),       'color' => 'blue' ),
+          array( 'value' => $stats['failed_today'], 'label' => __( 'Failed today', 'tahhan-jmap-mailer' ),     'color' => 'red'  ),
+          array( 'value' => $stats['sent_week'],    'label' => __( 'Sent this week', 'tahhan-jmap-mailer' ),   'color' => 'blue' ),
+          array( 'value' => $stats['failed_week'],  'label' => __( 'Failed this week', 'tahhan-jmap-mailer' ), 'color' => 'red'  ),
+          array( 'value' => $stats['total'],        'label' => __( 'Total logged', 'tahhan-jmap-mailer' ),     'color' => 'gray' ),
+        );
         foreach ( $stats_cfg as $s ) : ?>
         <div class="pw-stat pw-stat-<?php echo esc_attr( $s['color'] ); ?>">
           <strong><?php echo esc_html( $s['value'] ); ?></strong>
