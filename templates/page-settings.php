@@ -14,6 +14,8 @@ $act = esc_url( admin_url( 'admin-post.php' ) );
 
 $configured = ! empty( $options['server_url'] ) && ! empty( $options['username'] ) && ! empty( $options['password'] );
 $enabled    = ! empty( $options['enabled'] );
+$accounts   = isset( $accounts ) ? $accounts : array();
+$rules      = isset( $rules )    ? $rules    : array();
 
 /* ── Inline SVGs ── */
 $logo = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -592,7 +594,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
                 $acct_name = '';
                 if ( ! empty( $rule['account_id'] ) ) {
                   $racct     = Postwave_Account_Manager::get( $rule['account_id'] );
-                  $acct_name = $racct ? esc_html( $racct['name'] ) : esc_html( $rule['account_id'] );
+                  $acct_name = $racct ? $racct['name'] : $rule['account_id'];
                 }
                 $cond_summary = array();
                 foreach ( (array) ( isset( $rule['conditions'] ) ? $rule['conditions'] : array() ) as $cond ) {

@@ -290,6 +290,12 @@ class Postwave_JMAP_Client {
 	 * @return array|WP_Error Identity array or error.
 	 */
 	public function get_identity( $from_email ) {
+		if ( empty( $this->api_url ) ) {
+			$result = $this->discover_session();
+			if ( is_wp_error( $result ) ) {
+				return $result;
+			}
+		}
 		$responses = $this->request( array(
 			array( 'Identity/get', array( 'accountId' => $this->account_id ), '0' ),
 		) );
@@ -336,6 +342,12 @@ class Postwave_JMAP_Client {
 	 * @return string|WP_Error Mailbox ID or error.
 	 */
 	public function get_mailbox_id_by_role( $role ) {
+		if ( empty( $this->api_url ) ) {
+			$result = $this->discover_session();
+			if ( is_wp_error( $result ) ) {
+				return $result;
+			}
+		}
 		$responses = $this->request( array(
 			array(
 				'Mailbox/query',

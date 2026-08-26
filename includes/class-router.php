@@ -225,7 +225,8 @@ class Postwave_Router {
 				$to         = isset( $atts['to'] ) ? $atts['to'] : '';
 				$recipients = is_array( $to ) ? $to : array( $to );
 				foreach ( $recipients as $r ) {
-					if ( strtolower( trim( $r ) ) === $value ) {
+					$addr = preg_match( '/<(.+?)>/', $r, $m ) ? $m[1] : $r;
+					if ( strtolower( trim( $addr ) ) === $value ) {
 						return true;
 					}
 				}
@@ -235,7 +236,8 @@ class Postwave_Router {
 				$to         = isset( $atts['to'] ) ? $atts['to'] : '';
 				$recipients = is_array( $to ) ? $to : array( $to );
 				foreach ( $recipients as $r ) {
-					$parts = explode( '@', strtolower( trim( $r ) ) );
+					$addr  = preg_match( '/<(.+?)>/', $r, $m ) ? $m[1] : $r;
+					$parts = explode( '@', strtolower( trim( $addr ) ) );
 					if ( isset( $parts[1] ) && trim( $parts[1] ) === $value ) {
 						return true;
 					}

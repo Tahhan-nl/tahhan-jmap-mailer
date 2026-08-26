@@ -55,76 +55,6 @@
      SETUP WIZARD
   ════════════════════════════════ */
 
-  var currentStep = 0;
-
-  function initWizard() {
-    var startBtn = $('#pw-wz-start');
-    var wBody    = $('#pw-wz-body');
-    var ws0      = $('#pw-ws0');
-    if (!startBtn) return;
-
-    startBtn.addEventListener('click', function () {
-      ws0.style.opacity = '0';
-      ws0.style.transition = 'opacity .15s';
-      setTimeout(function () {
-        ws0.style.display = 'none';
-        wBody.style.display = '';
-        goStep(1);
-      }, 160);
-    });
-
-    $$('[data-next]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var n = parseInt(btn.getAttribute('data-next'), 10);
-        if (validateStep(currentStep)) goStep(n);
-      });
-    });
-
-    $$('[data-prev]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        goStep(parseInt(btn.getAttribute('data-prev'), 10));
-      });
-    });
-  }
-
-  function goStep(n) {
-    if (currentStep) {
-      var cur = $('#pw-ws' + currentStep);
-      if (cur) cur.style.display = 'none';
-    }
-    currentStep = n;
-    var next = $('#pw-ws' + n);
-    if (next) next.style.display = '';
-    renderProgress(n);
-  }
-
-  function renderProgress(n) {
-    $$('.pw-pdot').forEach(function (dot) {
-      var s = parseInt(dot.getAttribute('data-n'), 10);
-      dot.classList.remove('pw-pdot-active', 'pw-pdot-done');
-      if      (s < n)  dot.classList.add('pw-pdot-done');
-      else if (s === n) dot.classList.add('pw-pdot-active');
-    });
-    $$('.pw-pline').forEach(function (line, i) {
-      line.classList.toggle('pw-pline-done', i + 1 < n);
-    });
-  }
-
-  function validateStep(n) {
-    var step = $('#pw-ws' + n);
-    if (!step) return true;
-    var valid = true;
-    $$('input[required]', step).forEach(function (inp) {
-      inp.style.borderColor = '';
-      if (!inp.value.trim()) {
-        inp.style.borderColor = '#d63638';
-        if (valid) inp.focus();
-        valid = false;
-      }
-    });
-    return valid;
-  }
-
   /* ════════════════════════════════
      CONNECTION / EMAIL TEST
   ════════════════════════════════ */
@@ -375,7 +305,6 @@
   document.addEventListener('DOMContentLoaded', function () {
     initToggles();
     initPasswordToggles();
-    initWizard();
     initLogDetails();
     initRetryToggle();
     initIdentityLoader();
@@ -387,6 +316,13 @@
 
     initAccountManager();
     initRoutingUI();
+    initWizardOverlay();
+    initRelativeTime();
+
+    var url = window.location.href;
+    if ( url.indexOf( 'settings-updated=1' ) !== -1 || url.indexOf( 'saved=1' ) !== -1 ) {
+      pwToast( 'Settings saved.' );
+    }
   });
 
   // ── v1.2: Account manager UI ─────────────────────────────────────────────
@@ -700,15 +636,4 @@
     } );
   }
 
-  document.addEventListener( 'DOMContentLoaded', function() {
-    initWizardOverlay();
-    initRelativeTime();
-
-    // Show toast for WP admin notices (settings saved)
-    var url = window.location.href;
-    if ( url.indexOf( 'settings-updated=1' ) !== -1 || url.indexOf( 'saved=1' ) !== -1 ) {
-      pwToast( 'Settings saved.' );
-    }
-  } );
-
-})();
+})();;

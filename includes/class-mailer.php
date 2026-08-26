@@ -141,7 +141,7 @@ class Postwave_Mailer {
 				continue;
 			}
 			$real_path = realpath( $file );
-			if ( false === $real_path || false === $upload_base || 0 !== strncmp( $real_path, $upload_base, strlen( $upload_base ) ) ) {
+			if ( false === $real_path || false === $upload_base || 0 !== strncmp( $real_path, $upload_base . DIRECTORY_SEPARATOR, strlen( $upload_base ) + 1 ) ) {
 				continue;
 			}
 			$data = file_get_contents( $real_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents

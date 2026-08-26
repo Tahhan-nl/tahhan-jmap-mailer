@@ -3,7 +3,7 @@ Contributors: mustafatahhan
 Tags: email, mail, jmap, smtp, transactional-email
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -112,6 +112,15 @@ Go to **Tahhan JMAP Mailer -> Connection** and click "Test connection". The plug
 7. Routing tab — routing rules table with priority ordering, condition summary, account badges, and enable/disable status.
 
 == Changelog ==
+
+= 1.3.7 =
+* Fixed: Routing rules with to_email and to_domain conditions now correctly match display-name address format (e.g. "John Doe <john@example.com>")
+* Fixed: Attachment path check no longer permits sibling directories that share a prefix with the uploads directory
+* Fixed: get_identity() and get_mailbox_id_by_role() now auto-discover the JMAP session when called before request(), preventing empty accountId errors
+* Fixed: Account name in routing table was double-escaped, causing & to render as &amp;amp;
+* Fixed: Added fallback guards for $accounts and $rules variables in the settings template
+* Improved: Removed dead wizard JavaScript code (initWizard, goStep, renderProgress, validateStep) that targeted non-existent elements and silently did nothing
+* Improved: Merged two DOMContentLoaded handlers into one for predictable boot order
 
 = 1.3.6 =
 * Security: Block cross-origin redirects during JMAP session discovery
