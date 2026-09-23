@@ -77,13 +77,17 @@ class Postwave_Router {
 		                          ? $condition_operator_raw : 'any';
 
 		$rule = array(
-			'id'                 => $id,
-			'name'               => sanitize_text_field( isset( $data['name'] ) ? $data['name'] : __( 'Rule', 'tahhan-jmap-mailer' ) ),
-			'enabled'            => ! empty( $data['enabled'] ),
-			'conditions'         => $conditions,
-			'condition_operator' => $condition_operator,
-			'account_id'         => sanitize_key( isset( $data['account_id'] ) ? $data['account_id'] : 'acc_primary' ),
-			'identity_id'        => sanitize_text_field( isset( $data['identity_id'] ) ? $data['identity_id'] : '' ),
+			'id'                  => $id,
+			'name'                => sanitize_text_field( isset( $data['name'] ) ? $data['name'] : __( 'Rule', 'tahhan-jmap-mailer' ) ),
+			'enabled'             => ! empty( $data['enabled'] ),
+			'conditions'          => $conditions,
+			'condition_operator'  => $condition_operator,
+			'account_id'          => sanitize_key( isset( $data['account_id'] ) ? $data['account_id'] : 'acc_primary' ),
+			'identity_id'         => sanitize_text_field( isset( $data['identity_id'] ) ? $data['identity_id'] : '' ),
+			// v1.4: advanced routing
+			'from_name'           => sanitize_text_field( isset( $data['from_name'] ) ? $data['from_name'] : '' ),
+			'from_email'          => sanitize_email( isset( $data['from_email'] ) ? $data['from_email'] : '' ),
+			'fallback_account_id' => sanitize_key( isset( $data['fallback_account_id'] ) ? $data['fallback_account_id'] : '' ),
 		);
 
 		// Update in place or append.
@@ -169,9 +173,18 @@ class Postwave_Router {
 			if ( self::matches_rule( $rule, $atts ) ) {
 				$account = Postwave_Account_Manager::get( $rule['account_id'] );
 				if ( null !== $account ) {
-					// Optionally override identity from the rule.
 					if ( ! empty( $rule['identity_id'] ) ) {
 						$account['identity_id'] = $rule['identity_id'];
+					}
+					// v1.4: pass From override and fallback account to the mailer.
+					if ( ! empty( $rule['from_name'] ) ) {
+						$account['rule_from_name'] = $rule['from_name'];
+					}
+					if ( ! empty( $rule['from_email'] ) ) {
+						$account['rule_from_email'] = $rule['from_email'];
+					}
+					if ( ! empty( $rule['fallback_account_id'] ) ) {
+						$account['fallback_account_id'] = $rule['fallback_account_id'];
 					}
 					return $account;
 				}
@@ -212,8 +225,9 @@ class Postwave_Router {
 	 * Evaluate a single condition against the email args and context.
 	 */
 	private static function matches_condition( array $condition, array $atts ) {
-		$field = isset( $condition['field'] ) ? $condition['field'] : '';
-		$value = strtolower( trim( isset( $condition['value'] ) ? $condition['value'] : '' ) );
+		$field     = isset( $condition['field'] ) ? $condition['field'] : '';
+		$raw_value = isset( $condition['value'] ) ? $condition['value'] : '';
+		$value     = strtolower( trim( $raw_value ) );
 
 		if ( '' === $field || '' === $value ) {
 			return false;
@@ -226,7 +240,7 @@ class Postwave_Router {
 				$recipients = is_array( $to ) ? $to : array( $to );
 				foreach ( $recipients as $r ) {
 					$addr = preg_match( '/<(.+?)>/', $r, $m ) ? $m[1] : $r;
-					if ( strtolower( trim( $addr ) ) === $value ) {
+					if ( self::match_value( strtolower( trim( $addr ) ), $value ) ) {
 						return true;
 					}
 				}
@@ -238,20 +252,35 @@ class Postwave_Router {
 				foreach ( $recipients as $r ) {
 					$addr  = preg_match( '/<(.+?)>/', $r, $m ) ? $m[1] : $r;
 					$parts = explode( '@', strtolower( trim( $addr ) ) );
-					if ( isset( $parts[1] ) && trim( $parts[1] ) === $value ) {
+					if ( isset( $parts[1] ) && self::match_value( trim( $parts[1] ), $value ) ) {
 						return true;
 					}
 				}
 				return false;
 
 			case 'from_email':
-				// from_email may be in headers array.
 				$from = strtolower( self::extract_from_email( isset( $atts['headers'] ) ? $atts['headers'] : '' ) );
-				return ( $from === $value );
+				return self::match_value( $from, $value );
 
 			case 'subject_contains':
 				$subject = isset( $atts['subject'] ) ? $atts['subject'] : '';
-				return ( false !== stripos( $subject, isset( $condition['value'] ) ? $condition['value'] : '' ) );
+				// Regex or wildcard: use match_value on lowercase; plain text: substring search.
+				if ( self::is_pattern( $raw_value ) ) {
+					return self::match_value( strtolower( $subject ), $value );
+				}
+				return false !== stripos( $subject, $raw_value );
+
+			case 'body_contains':
+				$body = wp_strip_all_tags( isset( $atts['message'] ) ? $atts['message'] : '' );
+				if ( self::is_pattern( $raw_value ) ) {
+					return self::match_value( strtolower( $body ), $value );
+				}
+				return false !== stripos( $body, $raw_value );
+
+			case 'has_attachments':
+				$attachments = isset( $atts['attachments'] ) ? (array) $atts['attachments'] : array();
+				$has         = ! empty( array_filter( $attachments ) );
+				return ( 'yes' === $value || '1' === $value ) ? $has : ! $has;
 
 			case 'plugin':
 				$ctx    = self::get_context();
@@ -268,6 +297,45 @@ class Postwave_Router {
 			default:
 				return false;
 		}
+	}
+
+	/**
+	 * Match a value against a pattern with wildcard (*) or /regex/ support.
+	 * Falls back to exact match when no pattern syntax is detected.
+	 *
+	 * @param string $haystack Lowercase subject to test.
+	 * @param string $pattern  Lowercase pattern from condition value.
+	 * @return bool
+	 */
+	private static function match_value( $haystack, $pattern ) {
+		// /regex/ or /regex/i syntax
+		if ( strlen( $pattern ) > 2 && '/' === $pattern[0] ) {
+			$last = strrpos( $pattern, '/', 1 );
+			if ( false !== $last ) {
+				$inner = substr( $pattern, 1, $last - 1 );
+				$flags = preg_replace( '/[^isu]/', '', substr( $pattern, $last + 1 ) );
+				$result = @preg_match( '/' . $inner . '/' . $flags, $haystack ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+				return false !== $result && (bool) $result;
+			}
+		}
+		// Wildcard * syntax → anchored regex
+		if ( false !== strpos( $pattern, '*' ) ) {
+			$regex = '/^' . str_replace( '\*', '.*', preg_quote( $pattern, '/' ) ) . '$/';
+			return (bool) preg_match( $regex, $haystack );
+		}
+		// Exact match
+		return $haystack === $pattern;
+	}
+
+	/**
+	 * Return true when the raw condition value uses regex or wildcard syntax.
+	 *
+	 * @param string $value Raw (un-lowercased) condition value.
+	 * @return bool
+	 */
+	private static function is_pattern( $value ) {
+		return false !== strpos( $value, '*' ) ||
+		       ( strlen( $value ) > 2 && '/' === $value[0] && false !== strrpos( $value, '/', 1 ) );
 	}
 
 	/**

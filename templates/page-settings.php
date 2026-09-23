@@ -726,8 +726,12 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
             <div class="pw-conditions-list" id="pw-conditions-list" style="margin-top:8px;"></div>
             <button type="button" class="pw-add-condition" id="pw-add-condition-btn">+ <?php esc_html_e( 'Add condition', 'tahhan-jmap-mailer' ); ?></button>
             <p class="pw-desc" style="margin-top:6px;">
-              <?php esc_html_e( 'Plugin values: ', 'tahhan-jmap-mailer' ); ?>
-              <code>woocommerce</code>, <code>woocommerce:customer_processing_order</code>, <code>gravityforms</code>, <code>fluentform</code>, <code>cf7</code>
+              <?php esc_html_e( 'Email / domain fields support wildcards:', 'tahhan-jmap-mailer' ); ?>
+              <code>*@example.com</code>, <code>orders.*</code>, <code>/^admin/i</code> &mdash;
+              <?php esc_html_e( 'Plugin values:', 'tahhan-jmap-mailer' ); ?>
+              <code>woocommerce</code>, <code>woocommerce:customer_processing_order</code>, <code>gravityforms</code>, <code>fluentform</code>, <code>cf7</code> &mdash;
+              <?php esc_html_e( 'Attachments:', 'tahhan-jmap-mailer' ); ?>
+              <code>has_attachments: yes</code> / <code>no</code>
             </p>
           </div>
 
@@ -742,9 +746,36 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
               </select>
             </div>
             <div class="pw-field">
-              <label for="pw-rule-identity"><?php esc_html_e( 'Override identity ID', 'tahhan-jmap-mailer' ); ?> <em class="pw-label-opt"><?php esc_html_e( 'optional', 'tahhan-jmap-mailer' ); ?></em></label>
-              <input type="text" id="pw-rule-identity" class="pw-input" name="pw_rule[identity_id]" placeholder="<?php esc_attr_e( 'Leave blank to use account default', 'tahhan-jmap-mailer' ); ?>">
+              <label for="pw-rule-fallback"><?php esc_html_e( 'Fallback account', 'tahhan-jmap-mailer' ); ?> <em class="pw-label-opt"><?php esc_html_e( 'optional', 'tahhan-jmap-mailer' ); ?></em></label>
+              <select id="pw-rule-fallback" name="pw_rule[fallback_account_id]" class="pw-select">
+                <option value=""><?php esc_html_e( '— None —', 'tahhan-jmap-mailer' ); ?></option>
+                <?php foreach ( $accounts as $racct ) : ?>
+                <option value="<?php echo esc_attr( $racct['id'] ); ?>"><?php echo esc_html( $racct['name'] ); ?></option>
+                <?php endforeach; ?>
+              </select>
+              <p class="pw-desc"><?php esc_html_e( 'Used when the target account fails to connect.', 'tahhan-jmap-mailer' ); ?></p>
             </div>
+          </div>
+
+          <!-- v1.4: From override -->
+          <div class="pw-panel" style="margin-top:16px;padding:14px 16px;">
+            <p style="margin:0 0 10px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--pw-muted,#787c82);"><?php esc_html_e( 'From Override', 'tahhan-jmap-mailer' ); ?> <em style="font-weight:400;text-transform:none;"><?php esc_html_e( '— optional', 'tahhan-jmap-mailer' ); ?></em></p>
+            <div class="pw-form-grid-2">
+              <div class="pw-field">
+                <label for="pw-rule-from-name"><?php esc_html_e( 'From Name', 'tahhan-jmap-mailer' ); ?></label>
+                <input type="text" id="pw-rule-from-name" class="pw-input" name="pw_rule[from_name]" placeholder="<?php esc_attr_e( 'e.g. Orders Team', 'tahhan-jmap-mailer' ); ?>">
+              </div>
+              <div class="pw-field">
+                <label for="pw-rule-from-email"><?php esc_html_e( 'From Email', 'tahhan-jmap-mailer' ); ?></label>
+                <input type="email" id="pw-rule-from-email" class="pw-input" name="pw_rule[from_email]" placeholder="<?php esc_attr_e( 'e.g. orders@example.com', 'tahhan-jmap-mailer' ); ?>">
+              </div>
+            </div>
+          </div>
+
+          <!-- Identity override -->
+          <div class="pw-field" style="margin-top:16px;">
+            <label for="pw-rule-identity"><?php esc_html_e( 'Override identity ID', 'tahhan-jmap-mailer' ); ?> <em class="pw-label-opt"><?php esc_html_e( 'optional', 'tahhan-jmap-mailer' ); ?></em></label>
+            <input type="text" id="pw-rule-identity" class="pw-input" name="pw_rule[identity_id]" placeholder="<?php esc_attr_e( 'Leave blank to use account default', 'tahhan-jmap-mailer' ); ?>">
           </div>
 
           <div class="pw-form-actions">

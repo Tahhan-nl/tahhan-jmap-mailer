@@ -350,13 +350,17 @@ class Postwave_Admin {
 		}
 
 		$data = array(
-			'id'                 => sanitize_key( isset( $in['id'] ) ? $in['id'] : '' ),
-			'name'               => sanitize_text_field( isset( $in['name'] ) ? $in['name'] : '' ),
-			'enabled'            => ! empty( $in['enabled'] ),
-			'conditions'         => $conditions,
-			'condition_operator' => sanitize_key( isset( $in['condition_operator'] ) ? $in['condition_operator'] : 'any' ),
-			'account_id'         => sanitize_key( isset( $in['account_id'] ) ? $in['account_id'] : 'acc_primary' ),
-			'identity_id'        => sanitize_text_field( isset( $in['identity_id'] ) ? $in['identity_id'] : '' ),
+			'id'                  => sanitize_key( isset( $in['id'] ) ? $in['id'] : '' ),
+			'name'                => sanitize_text_field( isset( $in['name'] ) ? $in['name'] : '' ),
+			'enabled'             => ! empty( $in['enabled'] ),
+			'conditions'          => $conditions,
+			'condition_operator'  => sanitize_key( isset( $in['condition_operator'] ) ? $in['condition_operator'] : 'any' ),
+			'account_id'          => sanitize_key( isset( $in['account_id'] ) ? $in['account_id'] : 'acc_primary' ),
+			'identity_id'         => sanitize_text_field( isset( $in['identity_id'] ) ? $in['identity_id'] : '' ),
+			// v1.4: advanced routing
+			'from_name'           => sanitize_text_field( isset( $in['from_name'] ) ? $in['from_name'] : '' ),
+			'from_email'          => sanitize_email( isset( $in['from_email'] ) ? $in['from_email'] : '' ),
+			'fallback_account_id' => sanitize_key( isset( $in['fallback_account_id'] ) ? $in['fallback_account_id'] : '' ),
 		);
 
 		Postwave_Router::save_rule( $data );

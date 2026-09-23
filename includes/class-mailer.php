@@ -86,27 +86,48 @@ class Postwave_Mailer {
 		 */
 		$forced_identity_id = (string) apply_filters( 'postwave_identity_id', $forced_identity_id, $atts );
 
-		$routed_account = Postwave_Router::resolve( $atts );
+		$routed_account      = Postwave_Router::resolve( $atts );
+		$fallback_account_id = '';
 
 		if ( null !== $routed_account ) {
 			$account_server_url = $routed_account['server_url'];
 			$account_username   = $routed_account['username'];
 			$account_password   = $routed_account['password'];
-			// Allow the rule's identity_id to override the account's identity_id.
 			if ( ! empty( $routed_account['identity_id'] ) && empty( $forced_identity_id ) ) {
 				$forced_identity_id = $routed_account['identity_id'];
 			}
+			// v1.4: apply per-rule From override.
+			if ( ! empty( $routed_account['rule_from_name'] ) ) {
+				$from_name = $routed_account['rule_from_name'];
+			}
+			if ( ! empty( $routed_account['rule_from_email'] ) ) {
+				$from_email = $routed_account['rule_from_email'];
+			}
+			if ( ! empty( $routed_account['fallback_account_id'] ) ) {
+				$fallback_account_id = $routed_account['fallback_account_id'];
+			}
 			$log['routed_to'] = $routed_account['id'];
 		} else {
-			// Fall back to primary account credentials.
 			$account_server_url = $this->options['server_url'];
 			$account_username   = $this->options['username'];
 			$account_password   = $this->options['password'];
 		}
 
-		$client = new Postwave_JMAP_Client( $account_server_url, $account_username, $account_password );
-
+		$client  = new Postwave_JMAP_Client( $account_server_url, $account_username, $account_password );
 		$session = $client->discover_session();
+
+		// v1.4: if the routed account fails to connect, try the fallback before giving up.
+		if ( is_wp_error( $session ) && ! empty( $fallback_account_id ) ) {
+			$fallback = Postwave_Account_Manager::get( $fallback_account_id );
+			if ( null !== $fallback ) {
+				$client  = new Postwave_JMAP_Client( $fallback['server_url'], $fallback['username'], $fallback['password'] );
+				$session = $client->discover_session();
+				if ( ! is_wp_error( $session ) ) {
+					$log['routed_to'] = ( isset( $log['routed_to'] ) ? $log['routed_to'] : '' ) . '+fallback';
+				}
+			}
+		}
+
 		if ( is_wp_error( $session ) ) {
 			return $this->fail( $log, $session->get_error_message(), $atts, $is_retry, $log_id );
 		}

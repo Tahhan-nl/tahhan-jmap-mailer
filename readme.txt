@@ -3,7 +3,7 @@ Contributors: mustafatahhan
 Tags: email, mail, jmap, smtp, transactional-email
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 1.3.7
+Stable tag: 1.4.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -25,7 +25,7 @@ Every send attempt is logged (recipient, subject, status, JMAP IDs) in a capped 
 * **JMAP Protocol** — Full RFC 8620 / RFC 8621 implementation, two-step Email/set + EmailSubmission/set delivery
 * **Auto-discovery** — JMAP session discovered automatically from `/.well-known/jmap`
 * **Multi-account** — Configure multiple JMAP accounts (Primary, Transactional, etc.)
-* **Routing rules** — Route emails to specific accounts based on recipient domain, subject, plugin type, and more
+* **Advanced routing rules** — Route emails based on recipient domain/email (with wildcard and regex support), subject, body, attachments, or plugin type. Override the From address and set a fallback account per rule
 * **Retry queue** — Failed sends automatically retried via WP-Cron with exponential backoff
 * **Open tracking** — Optional 1x1 pixel tracking for HTML emails, entirely self-hosted
 * **WooCommerce integration** — Detect and route WooCommerce order, customer, and admin emails
@@ -112,6 +112,14 @@ Go to **Tahhan JMAP Mailer -> Connection** and click "Test connection". The plug
 7. Routing tab — routing rules table with priority ordering, condition summary, account badges, and enable/disable status.
 
 == Changelog ==
+
+= 1.4.0 =
+* Added: Wildcard matching for recipient email, recipient domain, and sender email conditions — e.g. *@example.com, orders.*
+* Added: Regex matching (/pattern/i) for email, domain, subject, and body conditions
+* Added: "Body contains" routing condition — route emails based on message body text
+* Added: "Has attachments" routing condition — route emails with or without file attachments
+* Added: Per-rule From override — set a custom From name and email address per routing rule
+* Added: Fallback account per routing rule — if the target account fails to connect, automatically try a fallback account before falling back to primary
 
 = 1.3.7 =
 * Fixed: Routing rules with to_email and to_domain conditions now correctly match display-name address format (e.g. "John Doe <john@example.com>")

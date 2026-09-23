@@ -486,6 +486,15 @@
         var accountSel = document.getElementById( 'pw-rule-account' );
         if ( accountSel ) accountSel.value = data.account_id || 'acc_primary';
 
+        var fallbackSel = document.getElementById( 'pw-rule-fallback' );
+        if ( fallbackSel ) fallbackSel.value = data.fallback_account_id || '';
+
+        var fromNameEl = document.getElementById( 'pw-rule-from-name' );
+        if ( fromNameEl ) fromNameEl.value = data.from_name || '';
+
+        var fromEmailEl = document.getElementById( 'pw-rule-from-email' );
+        if ( fromEmailEl ) fromEmailEl.value = data.from_email || '';
+
         var identityEl = document.getElementById( 'pw-rule-identity' );
         if ( identityEl ) identityEl.value = data.identity_id || '';
 
@@ -516,10 +525,12 @@
     row.className = 'pw-condition-row';
 
     var fieldOpts = [
-      { value: 'to_domain',        label: 'Recipient domain (e.g. example.com)' },
-      { value: 'to_email',         label: 'Recipient email (exact)' },
-      { value: 'from_email',       label: 'Sender email (exact)' },
-      { value: 'subject_contains', label: 'Subject contains' },
+      { value: 'to_domain',        label: 'Recipient domain (supports * wildcards)' },
+      { value: 'to_email',         label: 'Recipient email (supports * wildcards)' },
+      { value: 'from_email',       label: 'Sender email (supports * wildcards)' },
+      { value: 'subject_contains', label: 'Subject contains (or /regex/)' },
+      { value: 'body_contains',    label: 'Body contains (or /regex/)' },
+      { value: 'has_attachments',  label: 'Has attachments — value: yes or no' },
       { value: 'plugin',           label: 'Plugin / email type' },
     ];
 
