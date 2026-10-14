@@ -14,7 +14,7 @@ description: >
 |------|--------|
 | Plugin naam | Tahhan JMAP Mailer |
 | Slug / text domain | `tahhan-jmap-mailer` |
-| Huidige versie | 1.3.7 |
+| Huidige versie | 1.4.1 |
 | Lokaal pad | `/Users/mustafa/Tahhan jamp plugin/postwave` |
 | Hoofd PHP-bestand | `tahhan-jmap-mailer.php` |
 | GitHub repo | `https://github.com/Tahhan-nl/tahhan-jmap-mailer` |
