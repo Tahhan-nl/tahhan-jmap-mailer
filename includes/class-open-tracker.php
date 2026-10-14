@@ -83,6 +83,16 @@ class Postwave_Open_Tracker {
 	 * @param WP_REST_Request $request
 	 */
 	public static function handle_pixel( $request ) {
+		// Transient-based rate limiting: max 60 requests per minute per IP.
+		$ip   = sanitize_text_field( isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '' );
+		$rkey = 'postwave_pixel_rl_' . md5( $ip );
+		$hits = (int) get_transient( $rkey );
+		if ( $hits >= 60 ) {
+			status_header( 429 );
+			exit;
+		}
+		set_transient( $rkey, $hits + 1, MINUTE_IN_SECONDS );
+
 		$token = $request->get_param( 'token' );
 
 		// Find the matching log entry.
@@ -97,7 +107,8 @@ class Postwave_Open_Tracker {
 		}
 
 		// Return a 1×1 transparent GIF — no caching.
-		header( 'Content-Type: image/gif' );
+		// Direct headers are required for binary output; WP_REST_Response does not support raw binary.
+		header( 'Content-Type: image/gif' ); // phpcs:ignore WordPress.Headers.Headers.MultipleHeaders
 		header( 'Cache-Control: no-store, no-cache, must-revalidate, max-age=0' );
 		header( 'Pragma: no-cache' );
 		header( 'Expires: Thu, 01 Jan 1970 00:00:00 GMT' );

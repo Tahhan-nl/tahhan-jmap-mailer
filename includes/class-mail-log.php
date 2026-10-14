@@ -37,6 +37,8 @@ class Postwave_Mail_Log {
 			'account_id'       => sanitize_text_field( $entry['account_id'] ?? '' ),
 			'identity_id'      => sanitize_text_field( $entry['identity_id'] ?? '' ),
 			'email_id'         => sanitize_text_field( $entry['email_id'] ?? '' ),
+			// v1.4: which plugin-account was used for routing
+			'routed_to'        => sanitize_text_field( $entry['routed_to'] ?? '' ),
 			// v1.1 fields
 			'retry_count'      => 0,
 			'retry_status'     => null,  // null | 'retried' | 'exhausted'

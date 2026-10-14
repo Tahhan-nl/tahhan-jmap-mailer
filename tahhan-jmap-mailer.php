@@ -3,7 +3,7 @@
  * Plugin Name: Tahhan JMAP Mailer
  * Plugin URI:  https://github.com/Tahhan-nl/tahhan-jmap-mailer
  * Description: Sends WordPress emails via the modern JMAP protocol (RFC 8620/8621). No SMTP ports needed — works with Stalwart, Fastmail, Cyrus and more. Includes live connection testing and full mail logging.
- * Version:     1.4.0
+ * Version:     1.4.1
  * Author:      Tahhan
  * Author URI:  https://tahhan.nl
  * License:     GPL-2.0-or-later
@@ -11,7 +11,7 @@
  * Text Domain: tahhan-jmap-mailer
  * Domain Path: /languages
  * Requires at least: 5.8
- * Tested up to: 6.7
+ * Tested up to: 6.8
  * Requires PHP: 7.4
  */
 
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @license GPL-2.0-or-later
  */
 
-define( 'POSTWAVE_VERSION',      '1.4.0' );
+define( 'POSTWAVE_VERSION',      '1.4.1' );
 define( 'POSTWAVE_PLUGIN_DIR',   plugin_dir_path( __FILE__ ) );
 define( 'POSTWAVE_PLUGIN_URL',   plugin_dir_url( __FILE__ ) );
 define( 'POSTWAVE_PLUGIN_BASE',  plugin_basename( __FILE__ ) );

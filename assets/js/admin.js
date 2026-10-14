@@ -282,6 +282,8 @@
               if ( hidEmail ) { hidEmail.value = ''; }
             }
           }
+          // Remove any previously attached listener before adding a new one to prevent leaks on repeated clicks.
+          select.removeEventListener( 'change', syncHidden );
           select.addEventListener( 'change', syncHidden );
           syncHidden();
 
@@ -390,7 +392,11 @@
     var testResult = document.getElementById( 'pw-test-account-result' );
     if ( testBtn ) {
       testBtn.addEventListener( 'click', function () {
-        var accountId = ( idField && idField.value ) ? idField.value : 'acc_primary';
+        if ( ! idField || ! idField.value ) {
+          if ( testResult ) { testResult.textContent = 'Save the account first before testing.'; }
+          return;
+        }
+        var accountId = idField.value;
         testBtn.disabled    = true;
         testBtn.textContent = 'Testing…';
         if ( testResult ) testResult.textContent = '';

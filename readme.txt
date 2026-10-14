@@ -2,8 +2,8 @@
 Contributors: mustafatahhan
 Tags: email, mail, jmap, smtp, transactional-email
 Requires at least: 5.8
-Tested up to: 6.7
-Stable tag: 1.4.0
+Tested up to: 6.8
+Stable tag: 1.4.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -112,6 +112,21 @@ Go to **Tahhan JMAP Mailer -> Connection** and click "Test connection". The plug
 7. Routing tab — routing rules table with priority ordering, condition summary, account badges, and enable/disable status.
 
 == Changelog ==
+
+= 1.4.1 =
+* Fixed: Wizard Step 2 identity fields were outside any form and never saved — wrapped in a proper form so identity settings are now stored when clicking Save & Continue
+* Fixed: "Test connection" button in Accounts tab tested the primary account instead of the new account being created — now requires saving the account first
+* Fixed: `has_attachments` routing condition now also accepts `true`, `on`, `false`, `off` as valid values (previously only `yes`/`no`/`1`/`0` were recognised)
+* Fixed: Regex condition values are now validated for syntax and length at save time, preventing malformed patterns from being stored
+* Fixed: `routed_to` (the plugin account ID used for routing) is now stored in the mail log and visible in log entries
+* Fixed: Identity fallback now logs a PHP notice when no JMAP identity matches the configured From email, making misconfiguration easier to diagnose
+* Fixed: CSV export Content-Length header now uses byte-accurate `mb_strlen(..., '8bit')`, preventing download issues with multibyte subjects
+* Fixed: `wp_unslash()` added before `sanitize_key()` on `$_POST['account_id']` and `$_POST['rule_id']` in delete handlers
+* Fixed: Password field now applies `wp_unslash()` before storing, preventing backslash corruption on special-character passwords
+* Security: Capability check (`current_user_can`) now runs before nonce verification in all three AJAX handlers, following WordPress best practices
+* Security: Open tracking pixel endpoint now rate-limits to 60 requests per minute per IP using transients
+* Improved: `esc_attr()` added to status badge class attribute in mail log table
+* Improved: Tested up to WordPress 6.8
 
 = 1.4.0 =
 * Added: Wildcard matching for recipient email, recipient domain, and sender email conditions — e.g. *@example.com, orders.*

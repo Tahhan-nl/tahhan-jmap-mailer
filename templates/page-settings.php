@@ -108,26 +108,31 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
 
       <!-- Step 2: Identity -->
       <div class="pw-wizard__step">
-        <div class="pw-wizard__field">
-          <label for="pw-wz-iname"><?php esc_html_e( 'Identity Name', 'tahhan-jmap-mailer' ); ?></label>
-          <input type="text" id="pw-wz-iname" name="postwave[identity_name]"
-            value="<?php echo esc_attr( $o( 'identity_name', get_bloginfo( 'name' ) ) ); ?>">
-        </div>
-        <div class="pw-wizard__field">
-          <label for="pw-wz-iemail"><?php esc_html_e( 'Identity Email', 'tahhan-jmap-mailer' ); ?></label>
-          <input type="email" id="pw-wz-iemail" name="postwave[identity_email]"
-            value="<?php echo esc_attr( $o( 'identity_email', get_bloginfo( 'admin_email' ) ) ); ?>">
-        </div>
-        <div class="pw-wizard__field">
-          <label for="pw-wz-iid"><?php esc_html_e( 'Identity ID', 'tahhan-jmap-mailer' ); ?> <span style="font-size:11px;color:#9ca3af;"><?php esc_html_e( 'optional — leave blank to auto-resolve', 'tahhan-jmap-mailer' ); ?></span></label>
-          <input type="text" id="pw-wz-iid" name="postwave[identity_id]"
-            value="<?php echo esc_attr( $o( 'identity_id' ) ); ?>"
-            placeholder="<?php esc_attr_e( 'Auto-resolve from server', 'tahhan-jmap-mailer' ); ?>">
-        </div>
-        <div class="pw-wizard__actions">
-          <button type="button" class="pw-wizard__btn pw-wizard__btn--ghost" data-wizard-next="1">&larr; <?php esc_html_e( 'Back', 'tahhan-jmap-mailer' ); ?></button>
-          <button type="button" class="pw-wizard__btn pw-wizard__btn--primary" data-wizard-next="3"><?php esc_html_e( 'Save &amp; Continue', 'tahhan-jmap-mailer' ); ?> &rarr;</button>
-        </div>
+        <form method="post" action="<?php echo $act; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+          <?php wp_nonce_field( 'postwave_save' ); ?>
+          <input type="hidden" name="action"         value="postwave_save">
+          <input type="hidden" name="postwave[_tab]" value="general">
+          <div class="pw-wizard__field">
+            <label for="pw-wz-iname"><?php esc_html_e( 'Identity Name', 'tahhan-jmap-mailer' ); ?></label>
+            <input type="text" id="pw-wz-iname" name="postwave[identity_name]"
+              value="<?php echo esc_attr( $o( 'identity_name', get_bloginfo( 'name' ) ) ); ?>">
+          </div>
+          <div class="pw-wizard__field">
+            <label for="pw-wz-iemail"><?php esc_html_e( 'Identity Email', 'tahhan-jmap-mailer' ); ?></label>
+            <input type="email" id="pw-wz-iemail" name="postwave[identity_email]"
+              value="<?php echo esc_attr( $o( 'identity_email', get_bloginfo( 'admin_email' ) ) ); ?>">
+          </div>
+          <div class="pw-wizard__field">
+            <label for="pw-wz-iid"><?php esc_html_e( 'Identity ID', 'tahhan-jmap-mailer' ); ?> <span style="font-size:11px;color:#9ca3af;"><?php esc_html_e( 'optional — leave blank to auto-resolve', 'tahhan-jmap-mailer' ); ?></span></label>
+            <input type="text" id="pw-wz-iid" name="postwave[identity_id]"
+              value="<?php echo esc_attr( $o( 'identity_id' ) ); ?>"
+              placeholder="<?php esc_attr_e( 'Auto-resolve from server', 'tahhan-jmap-mailer' ); ?>">
+          </div>
+          <div class="pw-wizard__actions">
+            <button type="button" class="pw-wizard__btn pw-wizard__btn--ghost" data-wizard-next="1">&larr; <?php esc_html_e( 'Back', 'tahhan-jmap-mailer' ); ?></button>
+            <button type="submit" class="pw-wizard__btn pw-wizard__btn--primary"><?php esc_html_e( 'Save &amp; Continue', 'tahhan-jmap-mailer' ); ?> &rarr;</button>
+          </div>
+        </form>
       </div>
 
       <!-- Step 3: Done -->
@@ -987,7 +992,7 @@ $icon_check      = '<svg viewBox="0 0 20 20" fill="currentColor" width="14" heig
                 ?>
                 <tr>
                   <td>
-                    <span class="pw-badge-pill pw-badge-pill-<?php echo $sent ? 'success' : 'danger'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+                    <span class="pw-badge-pill pw-badge-pill-<?php echo esc_attr( $sent ? 'success' : 'danger' ); ?>">
                       <?php echo $sent ? esc_html__( 'Sent', 'tahhan-jmap-mailer' ) : esc_html__( 'Failed', 'tahhan-jmap-mailer' ); ?>
                     </span>
                     <?php if ( 'retried' === $retry_status ) : ?>

@@ -65,7 +65,8 @@ class Postwave_Admin {
 			'from_name'        => sanitize_text_field( $in['from_name'] ?? '' ),
 			'from_email'       => sanitize_email( $in['from_email'] ?? '' ),
 			'test_recipient'   => sanitize_email( $in['test_recipient'] ?? '' ),
-			'password'         => ! empty( $in['password'] ) ? $in['password'] : ( $old['password'] ?? '' ),
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- passwords must not be altered by sanitization
+			'password'         => ! empty( $in['password'] ) ? wp_unslash( $in['password'] ) : ( $old['password'] ?? '' ),
 			// v1.1 settings
 			'retry_enabled'    => ! empty( $in['retry_enabled'] ) ? 1 : 0,
 			'retry_max'        => min( 5, max( 1, (int) ( $in['retry_max'] ?? 3 ) ) ),
@@ -163,11 +164,10 @@ class Postwave_Admin {
 	}
 
 	public function ajax_test() {
-		check_ajax_referer( 'postwave_test', 'nonce' );
-
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'tahhan-jmap-mailer' ) ) );
 		}
+		check_ajax_referer( 'postwave_test', 'nonce' );
 
 		$options = get_option( POSTWAVE_OPTION_KEY, array() );
 
@@ -261,7 +261,7 @@ class Postwave_Admin {
 
 		header( 'Content-Type: text/csv; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="' . sanitize_file_name( $filename ) . '"' );
-		header( 'Content-Length: ' . strlen( $csv ) );
+		header( 'Content-Length: ' . mb_strlen( $csv, '8bit' ) );
 		header( 'Pragma: no-cache' );
 		header( 'Expires: 0' );
 
@@ -312,7 +312,7 @@ class Postwave_Admin {
 		}
 		check_admin_referer( 'postwave_delete_account' );
 
-		$id = sanitize_key( isset( $_POST['account_id'] ) ? $_POST['account_id'] : '' );
+		$id = sanitize_key( wp_unslash( isset( $_POST['account_id'] ) ? $_POST['account_id'] : '' ) );
 
 		if ( 'acc_primary' === $id ) {
 			wp_die( esc_html__( 'The primary account cannot be deleted.', 'tahhan-jmap-mailer' ) );
@@ -378,7 +378,7 @@ class Postwave_Admin {
 		}
 		check_admin_referer( 'postwave_delete_rule' );
 
-		$id = sanitize_key( isset( $_POST['rule_id'] ) ? $_POST['rule_id'] : '' );
+		$id = sanitize_key( wp_unslash( isset( $_POST['rule_id'] ) ? $_POST['rule_id'] : '' ) );
 		Postwave_Router::delete_rule( $id );
 
 		wp_safe_redirect( add_query_arg(
@@ -405,11 +405,10 @@ class Postwave_Admin {
 	}
 
 	public function ajax_test_account() {
-		check_ajax_referer( 'postwave_test_account', 'nonce' );
-
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'tahhan-jmap-mailer' ) ) );
 		}
+		check_ajax_referer( 'postwave_test_account', 'nonce' );
 
 		$account_id = sanitize_key( isset( $_POST['account_id'] ) ? $_POST['account_id'] : '' );
 		$account    = Postwave_Account_Manager::get( $account_id );
@@ -442,11 +441,10 @@ class Postwave_Admin {
 	 * AJAX: fetch JMAP identities from the configured server.
 	 */
 	public function ajax_fetch_identities() {
-		check_ajax_referer( 'postwave_fetch_identities', 'nonce' );
-
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'tahhan-jmap-mailer' ) ) );
 		}
+		check_ajax_referer( 'postwave_fetch_identities', 'nonce' );
 
 		$options = get_option( POSTWAVE_OPTION_KEY, array() );
 

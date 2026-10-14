@@ -316,6 +316,10 @@ class Postwave_JMAP_Client {
 			}
 		}
 
+		// No identity matched from_email; fall back to first identity and log a notice.
+		if ( ! empty( $from_email ) ) {
+			error_log( sprintf( 'Postwave: no JMAP identity found for <%s>, falling back to <%s>', $from_email, $identities[0]['email'] ?? '' ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		}
 		return $identities[0];
 	}
 

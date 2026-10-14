@@ -62,12 +62,22 @@ class Postwave_Router {
 			$id = 'rule_' . substr( md5( microtime( true ) . wp_rand() ), 0, 10 );
 		}
 
-		// Sanitize conditions.
+		// Sanitize conditions; reject invalid regex patterns to prevent ReDoS.
 		$conditions = array();
 		foreach ( (array) ( isset( $data['conditions'] ) ? $data['conditions'] : array() ) as $c ) {
 			$field = sanitize_key( isset( $c['field'] ) ? $c['field'] : '' );
 			$value = sanitize_text_field( isset( $c['value'] ) ? $c['value'] : '' );
 			if ( $field && '' !== $value ) {
+				// Validate regex syntax and enforce a length cap before storing.
+				if ( strlen( $value ) > 2 && '/' === $value[0] ) {
+					$last  = strrpos( $value, '/', 1 );
+					if ( false !== $last ) {
+						$inner = substr( $value, 1, $last - 1 );
+						if ( strlen( $inner ) > 200 || @preg_match( '/' . $inner . '/', '' ) === false ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+							continue; // Skip invalid/oversized regex.
+						}
+					}
+				}
 				$conditions[] = array( 'field' => $field, 'value' => $value );
 			}
 		}
@@ -280,7 +290,12 @@ class Postwave_Router {
 			case 'has_attachments':
 				$attachments = isset( $atts['attachments'] ) ? (array) $atts['attachments'] : array();
 				$has         = ! empty( array_filter( $attachments ) );
-				return ( 'yes' === $value || '1' === $value ) ? $has : ! $has;
+				$positive = in_array( $value, array( 'yes', '1', 'true', 'on' ), true );
+				$negative = in_array( $value, array( 'no', '0', 'false', 'off' ), true );
+				if ( ! $positive && ! $negative ) {
+					return false;
+				}
+				return $positive ? $has : ! $has;
 
 			case 'plugin':
 				$ctx    = self::get_context();
